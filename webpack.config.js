@@ -11,6 +11,8 @@ module.exports = {
   output: {
     path: __dirname,
     filename: './lib/index.js',
+    library: 'react-google-places-suggest',
+    libraryTarget: 'umd',
   },
   resolve: {
     extensions: ['', '.js']
