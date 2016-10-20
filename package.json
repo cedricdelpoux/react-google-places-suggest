@@ -4,7 +4,7 @@
   "description": "React component to select geolocated suggestion from Google Maps Places API",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cedricdelpoux/react-google-places-suggest.git"
+    "url": "git+https://github.com/xuopled/react-google-places-suggest.git"
   },
   "keywords": [
     "react",
@@ -17,9 +17,9 @@
   "author": "Cédric Delpoux <cedric.delpoux@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/cedricdelpoux/react-google-places-suggest/issues"
+    "url": "https://github.com/xuopled/react-google-places-suggest/issues"
   },
-  "homepage": "https://github.com/cedricdelpoux/react-google-places-suggest#readme",
+  "homepage": "https://github.com/xuopled/react-google-places-suggest#readme",
   "main": "lib/index.js",
   "files": [
     "lib"
