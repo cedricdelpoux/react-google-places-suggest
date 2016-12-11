@@ -1,8 +1,10 @@
 {
-  "stage": 0,
-  "loose": ["es6.modules", "es6.classes"],
-  "blacklist": [
-    "es6.tailCall",
-    "spec.functionName"
+  "presets": [
+    "react",
+    "es2015",
+    "stage-1"
+  ],
+  "plugins": [
+    "babel-plugin-add-module-exports"
   ]
 }

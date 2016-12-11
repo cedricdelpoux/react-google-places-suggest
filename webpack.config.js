@@ -1,49 +1,18 @@
-var webpack = require('webpack')
-var path = require('path')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-
-var sources = [
-  path.resolve(__dirname, 'src'),
-]
-
 module.exports = {
-  entry: './src/index.js',
+  entry: './index.js',
+  devtool: 'source-map',
   output: {
-    path: __dirname,
-    filename: './lib/index.js',
-    library: 'react-google-places-suggest',
-    libraryTarget: 'umd',
-  },
-  resolve: {
-    extensions: ['', '.js']
-  },
-  module: {
-    preLoaders: [
-      { test: /\.js?$/, include: sources, loader: 'eslint' },
-    ],
-    loaders: [
-      { test: /\.js$/, include: sources, loader: 'babel' },
-      { test: /\.css$/, include: sources, loader: ExtractTextPlugin.extract('style', 'css') },
-    ],
+    path: __dirname + '/dist',
+    filename: 'index.js',
+    library: 'ReactGooglePlacesSuggest',
+    libraryTarget: 'umd'
   },
   externals: {
-    react: {
+    'react': {
       root: 'React',
-      commonjs: 'react',
       commonjs2: 'react',
-      amd: 'react',
-    },
+      commonjs: 'react',
+      amd: 'react'
+    }
   },
-  plugins: [
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-    }),
-    new ExtractTextPlugin('./lib/index.css'),
-  ]
-}
+};

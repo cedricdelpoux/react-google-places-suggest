@@ -17,39 +17,61 @@ See [changelog](./CHANGELOG.md)
 ## Usage
 
 ```js
-import React, { Component } from 'react'
-import GooglePlacesSuggest from 'react-google-places-suggest'
+import React, {Component} from "react"
+import GoogleMapLoader from "react-google-maps-loader"
+import GooglePlacesSuggest from "react-google-places-suggest"
+import "react-google-places-suggest/lib/index.css"
 
-export default class MyComponent extends Component {
+const MY_API_KEY = "AIzaSyDwsdjfskhdbfjsdjbfksiTgnoriOAoUOgsUqOs10J0" // fake
+
+export default class MyGoogleSuggest extends Component {
   state = {
-    search: '',
+    search: "",
     selectedCoordinate: null,
   }
 
   handleSearchChange = (e) => {
-    this.setState({ search: e.target.value })
+    this.setState({search: e.target.value})
   }
 
-  handleSelectSuggest = (suggestName, coordinate) => {
-    this.setState({ search: suggestName, selectedCoordinate: coordinate })
+  handleSelectSuggest = (suggest, coordinate) => {
+    this.setState({search: suggest.description, selectedCoordinate: coordinate})
   }
 
   render() {
-    const { search } = this.state
+    const {search} = this.state
+    const {googleMaps} = this.props
 
     return (
-      <GooglePlacesSuggest onSelectSuggest={ this.handleSelectSuggest } search={ search }>
+      <GooglePlacesSuggest
+        googleMaps={googleMaps}
+        onSelectSuggest={this.handleSelectSuggest}
+        search={search}
+      >
         <input
           type="text"
-          value={ search }
+          value={search }
           placeholder="Search a location"
-          onChange={ this.handleSearchChange }
+          onChange={this.handleSearchChange}
         />
       </GooglePlacesSuggest>
     )
   }
 }
+
+export default GoogleMapLoader(MyGoogleSuggest, {
+  libraries: ["places"],
+  key: MY_API_KEY,
+})
 ```
+
+## Props
+  * `googleMaps`: Object - injected by GoogleMapLoader,
+  * `onSelectSuggest`: Function with two parameters (`onSelectSuggest: (suggest, coordinate) => {}`),
+  * `renderSuggest`: Function with one parameter (`renderSuggest: (suggest) => {}`),
+  * `search`: String - the search query,
+  * `suggestRadius`: Number - default 20,
+  * `textNoResults`: String - default "No results",
 
 ## Development
 
@@ -63,6 +85,12 @@ npm run clean
 
 ```js
 npm run build
+```
+
+### Build `dist` folder
+
+```js
+npm run dist
 ```
 
 ### Watch `src` folder
