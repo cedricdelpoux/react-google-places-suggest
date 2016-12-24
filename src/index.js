@@ -101,11 +101,15 @@ class GooglePlacesSuggest extends Component {
 
   renderNoResults() {
     const {textNoResults} = this.props
-    return (
-      <li className="placesSuggest_suggest">
-        {textNoResults}
-      </li>
-    )
+    if(this.props.hideNoResults != undefined && this.props.hideNoResults === true) {
+      return;
+    } else {
+        return (
+          <li className="placesSuggest_suggest">
+            {textNoResults}
+          </li>
+        )
+      }
   }
 
   renderDefaultSuggest(suggest) {
