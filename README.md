@@ -71,7 +71,7 @@ export default GoogleMapLoader(MyGoogleSuggest, {
   * `renderSuggest`: Function with one parameter (`renderSuggest: (suggest) => {}`),
   * `search`: String - the search query,
   * `suggestRadius`: Number - default 20,
-  * `textNoResults`: String - default "No results",
+  * `textNoResults`: String - default "No results" - null to disable,
 
 ## Development
 
