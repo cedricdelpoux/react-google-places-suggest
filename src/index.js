@@ -101,6 +101,11 @@ class GooglePlacesSuggest extends Component {
 
   renderNoResults() {
     const {textNoResults} = this.props
+
+    if(textNoResults === null) {
+      return;
+    }
+
     return (
       <li className="placesSuggest_suggest">
         {textNoResults}
