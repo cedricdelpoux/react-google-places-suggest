@@ -71,6 +71,8 @@ export default GoogleMapLoader(MyGoogleSuggest, {
   * `renderSuggest`: Function with one parameter (`renderSuggest: (suggest) => {}`),
   * `search`: String - the search query,
   * `suggestRadius`: Number - default 20,
+  * `suggestTypes`: String Array - default [] - accepts string values as defined by (Google API docs)[https://developers.google.com/maps/documentation/javascript/places-autocomplete],
+  * `suggestComponentRestrictions`: Object - default { country: "" }  - accepts values defined by (Google API docs)[https://developers.google.com/maps/documentation/javascript/places-autocomplete],
   * `textNoResults`: String - default "No results" - null to disable,
 
 ## Development
