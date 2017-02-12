@@ -199,9 +199,9 @@ GooglePlacesSuggest.defaultProps = {
   onSelectSuggest: () => {},
   search: "",
   suggestRadius: 20,  
-  suggestTypes: ["(cities)"],
+  suggestTypes: [],
   suggestComponentRestrictions: {
-    country: 'gb'
+    country: ""
   },
   textNoResults: "No results",
 }
