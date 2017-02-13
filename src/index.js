@@ -46,8 +46,8 @@ class GooglePlacesSuggest extends Component {
       input: search,
       location: new googleMaps.LatLng(0, 0),
       radius: suggestRadius,
-        types: suggestTypes,
-        componentRestrictions: suggestComponentRestrictions,
+      types: suggestTypes,
+      componentRestrictions: suggestComponentRestrictions,
     }, (googleSuggests) => {
       if (!googleSuggests) {
         this.setState({suggests: []})
@@ -190,8 +190,8 @@ GooglePlacesSuggest.propTypes = {
   renderSuggest: PropTypes.func,
   search: PropTypes.string,
   suggestRadius: PropTypes.number,
-  suggestTypes: _react.PropTypes.array,
-  suggestComponentRestrictions: _react.PropTypes.object,
+  suggestTypes: PropTypes.array,
+  suggestComponentRestrictions: PropTypes.object,
   textNoResults: PropTypes.string,
 }
 
