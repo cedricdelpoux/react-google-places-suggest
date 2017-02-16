@@ -34,7 +34,7 @@ class GooglePlacesSuggest extends Component {
   }
 
   updateSuggests(search) {
-    const {googleMaps, suggestRadius} = this.props
+    const {googleMaps, suggestRadius, suggestTypes, suggestComponentRestrictions} = this.props
     const autocompleteService = new googleMaps.places.AutocompleteService()
 
     if (!search) {
@@ -46,6 +46,8 @@ class GooglePlacesSuggest extends Component {
       input: search,
       location: new googleMaps.LatLng(0, 0),
       radius: suggestRadius,
+      types: suggestTypes,
+      componentRestrictions: suggestComponentRestrictions,
     }, (googleSuggests) => {
       if (!googleSuggests) {
         this.setState({suggests: []})
@@ -188,13 +190,19 @@ GooglePlacesSuggest.propTypes = {
   renderSuggest: PropTypes.func,
   search: PropTypes.string,
   suggestRadius: PropTypes.number,
+  suggestTypes: PropTypes.array,
+  suggestComponentRestrictions: PropTypes.object,
   textNoResults: PropTypes.string,
 }
 
 GooglePlacesSuggest.defaultProps = {
   onSelectSuggest: () => {},
   search: "",
-  suggestRadius: 20,
+  suggestRadius: 20,  
+  suggestTypes: [],
+  suggestComponentRestrictions: {
+    country: ""
+  },
   textNoResults: "No results",
 }
 
