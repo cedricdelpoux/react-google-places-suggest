@@ -1,6 +1,6 @@
 {
   "name": "react-google-places-suggest",
-  "version": "2.0.1",
+  "version": "2.1.1",
   "description": "React component to select geolocated suggestion from Google Maps Places API",
   "repository": {
     "type": "git",
@@ -20,7 +20,6 @@
     "url": "https://github.com/xuopled/react-google-places-suggest/issues"
   },
   "homepage": "https://github.com/xuopled/react-google-places-suggest#readme",
-  "browser": "./dist/index.js",
   "main": "lib/index.js",
   "style": "lib/index.css",
   "files": [
@@ -52,9 +51,7 @@
   "scripts": {
     "clean": "rm -rf lib",
     "lint": "eslint src/",
-    "dist": "webpack -p",
-    "build": "babel ./src --out-dir ./lib --source-maps && postcss --use autoprefixer src/index.css -d lib/",
-    "watch": "webpack --progress --colors --watch",
-    "prepublish": "npm run clean && npm run build && npm run dist"
+    "build": "babel ./src --out-dir ./lib --source-maps && postcss --use autoprefixer src/index.css -d ./lib",
+    "prepublish": "npm run clean && npm run build"
   }
 }
