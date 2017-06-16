@@ -1,14 +1,17 @@
-import React, {Component, PropTypes} from "react"
+import React, {
+  Component,
+  PropTypes
+} from "react"
 
 class GooglePlacesSuggest extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
       coordinate: null,
       googleMaps: null,
       focusedSuggestIndex: 0,
-      selectedLabel: "",
+      selectedLabel: props.selectedLabel,
       suggests: [],
     }
 
@@ -24,21 +27,33 @@ class GooglePlacesSuggest extends Component {
   }
 
   handleSelectSuggest(suggest) {
-    const {onSelectSuggest} = this.props
+    const {
+      onSelectSuggest
+    } = this.props
 
     this.geocodeSuggest(suggest.description, () => {
-      this.setState({selectedLabel: suggest.description, suggests: []}, () => {
+      this.setState({
+        selectedLabel: suggest.description,
+        suggests: []
+      }, () => {
         onSelectSuggest(suggest, this.state.coordinate)
       })
     })
   }
 
   updateSuggests(search) {
-    const {googleMaps, suggestRadius, suggestTypes, suggestComponentRestrictions} = this.props
+    const {
+      googleMaps,
+      suggestRadius,
+      suggestTypes,
+      suggestComponentRestrictions
+    } = this.props
     const autocompleteService = new googleMaps.places.AutocompleteService()
 
     if (!search) {
-      this.setState({suggests: []})
+      this.setState({
+        suggests: []
+      })
       return
     }
 
@@ -50,7 +65,9 @@ class GooglePlacesSuggest extends Component {
       componentRestrictions: suggestComponentRestrictions,
     }, (googleSuggests) => {
       if (!googleSuggests) {
-        this.setState({suggests: []})
+        this.setState({
+          suggests: []
+        })
         return
       }
 
@@ -62,10 +79,14 @@ class GooglePlacesSuggest extends Component {
   }
 
   geocodeSuggest(suggestLabel, callback) {
-    const {googleMaps} = this.props
+    const {
+      googleMaps
+    } = this.props
     const geocoder = new googleMaps.Geocoder()
 
-    geocoder.geocode({address: suggestLabel}, (results, status) => {
+    geocoder.geocode({
+      address: suggestLabel
+    }, (results, status) => {
       if (status === googleMaps.GeocoderStatus.OK) {
         const location = results[0].geometry.location
         const coordinate = {
@@ -74,13 +95,18 @@ class GooglePlacesSuggest extends Component {
           title: suggestLabel,
         }
 
-        this.setState({coordinate}, callback)
+        this.setState({
+          coordinate
+        }, callback)
       }
     })
   }
 
   handleKeyDown(e) {
-    const {focusedSuggestIndex, suggests} = this.state
+    const {
+      focusedSuggestIndex,
+      suggests
+    } = this.state
 
     if (suggests.length > 0) {
       if (e.key === "Enter") {
@@ -98,13 +124,17 @@ class GooglePlacesSuggest extends Component {
   }
 
   focusSuggest(index) {
-    this.setState({focusedSuggestIndex: index})
+    this.setState({
+      focusedSuggestIndex: index
+    })
   }
 
   renderNoResults() {
-    const {textNoResults} = this.props
+    const {
+      textNoResults
+    } = this.props
 
-    if(textNoResults === null) {
+    if (textNoResults === null) {
       return;
     }
 
@@ -116,7 +146,10 @@ class GooglePlacesSuggest extends Component {
   }
 
   renderDefaultSuggest(suggest) {
-    const {description, structured_formatting} = suggest
+    const {
+      description,
+      structured_formatting
+    } = suggest
     const firstMatchedString = structured_formatting.main_text_matched_substrings.shift()
     let labelParts = null
 
@@ -145,14 +178,17 @@ class GooglePlacesSuggest extends Component {
   }
 
   renderSuggest(suggest) {
-    const {renderSuggest} = this.props
-    return renderSuggest
-      ? this.renderSuggest(suggest)
-      : this.renderDefaultSuggest(suggest)
+    const {
+      renderSuggest
+    } = this.props
+    return renderSuggest ? this.renderSuggest(suggest) : this.renderDefaultSuggest(suggest)
   }
 
   renderSuggests() {
-    const {focusedSuggestIndex, suggests} = this.state
+    const {
+      focusedSuggestIndex,
+      suggests
+    } = this.state
     return (
       <ul className="placesSuggest_suggests">
         {suggests.length > 0
@@ -172,8 +208,13 @@ class GooglePlacesSuggest extends Component {
   }
 
   render() {
-    const {selectedLabel} = this.state
-    const {children, search} = this.props
+    const {
+      selectedLabel
+    } = this.state
+    const {
+      children,
+      search
+    } = this.props
     return (
       <div className="placesSuggest" onKeyDown={this.handleKeyDown}>
         {children}
@@ -198,7 +239,8 @@ GooglePlacesSuggest.propTypes = {
 GooglePlacesSuggest.defaultProps = {
   onSelectSuggest: () => {},
   search: "",
-  suggestRadius: 20,  
+  selectedLabel: '',
+  suggestRadius: 20,
   suggestTypes: [],
   suggestComponentRestrictions: {
     country: ""
