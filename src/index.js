@@ -60,7 +60,7 @@ class GooglePlacesSuggest extends Component {
       })
     })
   }
-
+  
   geocodeSuggest(suggestLabel, callback) {
     const {googleMaps} = this.props
     const geocoder = new googleMaps.Geocoder()
@@ -68,12 +68,15 @@ class GooglePlacesSuggest extends Component {
     geocoder.geocode({address: suggestLabel}, (results, status) => {
       if (status === googleMaps.GeocoderStatus.OK) {
         const location = results[0].geometry.location
+        const addressComponents = results[0].address_components
+        const formattedAddress = results[0].formatted_address
         const coordinate = {
           latitude: location.lat(),
           longitude: location.lng(),
           title: suggestLabel,
+          addressComponents: addressComponents,
+          formattedAddress: formattedAddress
         }
-
         this.setState({coordinate}, callback)
       }
     })
