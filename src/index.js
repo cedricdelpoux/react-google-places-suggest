@@ -1,184 +1,136 @@
-import React, {Component, PropTypes} from "react"
+import PropTypes from "prop-types"
+import React, {Component} from "react"
+import styled from "styled-components"
+
+import List from "./components/List"
+
+const Wrapper = styled.div`
+  width: 100%;
+  position: relative;
+`
 
 class GooglePlacesSuggest extends Component {
-  constructor() {
+  constructor(props) {
     super()
 
     this.state = {
-      coordinate: null,
-      googleMaps: null,
-      focusedSuggestIndex: 0,
-      selectedLabel: "",
-      suggests: [],
+      focusedPredictionIndex: 0,
+      predictions: [],
+      open: !!props.autocompletionRequest && props.autocompletionRequest.input,
     }
 
     this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
   componentWillMount() {
-    this.updateSuggests(this.props.search)
+    this.updatePredictions(this.props.autocompletionRequest)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.updateSuggests(nextProps.search)
+    if (
+      this.props.autocompletionRequest !== nextProps.autocompletionRequest &&
+      nextProps.autocompletionRequest
+    ) {
+      this.updatePredictions(nextProps.autocompletionRequest)
+    }
   }
 
-  handleSelectSuggest(suggest) {
+  handleSelectPrediction(suggest) {
     const {onSelectSuggest} = this.props
-
-    this.geocodeSuggest(suggest.description, () => {
-      this.setState({selectedLabel: suggest.description, suggests: []}, () => {
-        onSelectSuggest(suggest, this.state.coordinate)
-      })
-    })
+    this.setState(
+      {
+        open: false,
+        predictions: [],
+      },
+      () => {
+        this.geocodePrediction(suggest.description, result => {
+          onSelectSuggest(result)
+        })
+      }
+    )
   }
 
-  updateSuggests(search) {
-    const {googleMaps, suggestRadius, suggestTypes, suggestComponentRestrictions} = this.props
+  updatePredictions(autocompletionRequest) {
+    const {googleMaps} = this.props
     const autocompleteService = new googleMaps.places.AutocompleteService()
-
-    if (!search) {
-      this.setState({suggests: []})
+    if (!autocompletionRequest || !autocompletionRequest.input) {
+      this.setState({open: false, predictions: []})
       return
     }
 
-    autocompleteService.getPlacePredictions({
-      input: search,
-      location: new googleMaps.LatLng(0, 0),
-      radius: suggestRadius,
-      types: suggestTypes,
-      componentRestrictions: suggestComponentRestrictions,
-    }, (googleSuggests) => {
-      if (!googleSuggests) {
-        this.setState({suggests: []})
-        return
+    autocompleteService.getPlacePredictions(
+      autocompletionRequest, // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
+      predictions => {
+        if (!predictions) {
+          this.setState({open: true, predictions: []})
+          return
+        }
+        this.setState({
+          focusedPredictionIndex: 0,
+          open: true,
+          predictions: predictions,
+        })
       }
-
-      this.setState({
-        focusedSuggestIndex: 0,
-        suggests: googleSuggests,
-      })
-    })
+    )
   }
 
-  geocodeSuggest(suggestLabel, callback) {
+  geocodePrediction(address, callback) {
     const {googleMaps} = this.props
     const geocoder = new googleMaps.Geocoder()
 
-    geocoder.geocode({address: suggestLabel}, (results, status) => {
+    geocoder.geocode({address}, (results, status) => {
       if (status === googleMaps.GeocoderStatus.OK) {
-        const location = results[0].geometry.location
-        const coordinate = {
-          latitude: location.lat(),
-          longitude: location.lng(),
-          title: suggestLabel,
+        if (results.length > 0) {
+          callback(results[0])
         }
-
-        this.setState({coordinate}, callback)
+      } else {
+        // eslint-disable-next-line
+        console.error("Geocode error: " + status)
       }
     })
   }
 
   handleKeyDown(e) {
-    const {focusedSuggestIndex, suggests} = this.state
+    const {focusedPredictionIndex, predictions} = this.state
 
-    if (suggests.length > 0) {
+    if (predictions.length > 0) {
       if (e.key === "Enter") {
-        this.handleSelectSuggest(suggests[focusedSuggestIndex])
+        this.handleSelectPrediction(predictions[focusedPredictionIndex])
       } else if (e.key === "ArrowUp") {
-        if (suggests.length > 0 && focusedSuggestIndex > 0) {
-          this.focusSuggest(focusedSuggestIndex - 1)
+        if (predictions.length > 0 && focusedPredictionIndex > 0) {
+          this.focusPrediction(focusedPredictionIndex - 1)
         }
       } else if (e.key === "ArrowDown") {
-        if (suggests.length > 0 && focusedSuggestIndex < suggests.length - 1) {
-          this.focusSuggest(focusedSuggestIndex + 1)
+        if (
+          predictions.length > 0 &&
+          focusedPredictionIndex < predictions.length - 1
+        ) {
+          this.focusPrediction(focusedPredictionIndex + 1)
         }
       }
     }
   }
 
-  focusSuggest(index) {
-    this.setState({focusedSuggestIndex: index})
-  }
-
-  renderNoResults() {
-    const {textNoResults} = this.props
-
-    if(textNoResults === null) {
-      return;
-    }
-
-    return (
-      <li className="placesSuggest_suggest">
-        {textNoResults}
-      </li>
-    )
-  }
-
-  renderDefaultSuggest(suggest) {
-    const {description, structured_formatting} = suggest
-    const firstMatchedString = structured_formatting.main_text_matched_substrings.shift()
-    let labelParts = null
-
-    if (firstMatchedString) {
-      labelParts = {
-        before: description.substr(0, firstMatchedString.offset),
-        matched: description.substr(firstMatchedString.offset, firstMatchedString.length),
-        after: description.substr(firstMatchedString.offset + firstMatchedString.length),
-      }
-    }
-
-    return (
-      <div>
-        <span className="placesSuggest_suggestLabel">
-          {labelParts
-            ? <span>
-                {labelParts.before.length > 0 ? <span>{labelParts.before}</span> : null}
-                <span className="placesSuggest_suggestMatch">{labelParts.matched}</span>
-                {labelParts.after.length > 0 ? <span>{labelParts.after}</span> : null}
-              </span>
-            : description
-          }
-        </span>
-      </div>
-    )
-  }
-
-  renderSuggest(suggest) {
-    const {renderSuggest} = this.props
-    return renderSuggest
-      ? this.renderSuggest(suggest)
-      : this.renderDefaultSuggest(suggest)
-  }
-
-  renderSuggests() {
-    const {focusedSuggestIndex, suggests} = this.state
-    return (
-      <ul className="placesSuggest_suggests">
-        {suggests.length > 0
-          ? suggests.map((suggest, key) => (
-            <li
-              key={key}
-              className={`placesSuggest_suggest ${focusedSuggestIndex === key && "placesSuggest_suggest-active"}`}
-              onClick={() => this.handleSelectSuggest(suggest)}
-            >
-              {this.renderSuggest(suggest)}
-            </li>
-          ))
-          : this.renderNoResults()
-        }
-      </ul>
-    )
+  focusPrediction(index) {
+    this.setState({focusedPredictionIndex: index})
   }
 
   render() {
-    const {selectedLabel} = this.state
-    const {children, search} = this.props
+    const {focusedPredictionIndex, open, predictions} = this.state
+    const {children, customRender, textNoResults} = this.props
     return (
-      <div className="placesSuggest" onKeyDown={this.handleKeyDown}>
+      <Wrapper onKeyDown={this.handleKeyDown}>
         {children}
-        {search && selectedLabel !== search && this.renderSuggests()}
-      </div>
+        {open && (
+          <List
+            items={predictions}
+            activeItemIndex={focusedPredictionIndex}
+            customRender={customRender}
+            onSelect={suggest => this.handleSelectPrediction(suggest)}
+            textNoResults={textNoResults}
+          />
+        )}
+      </Wrapper>
     )
   }
 }
@@ -187,23 +139,15 @@ GooglePlacesSuggest.propTypes = {
   children: PropTypes.any.isRequired,
   googleMaps: PropTypes.object.isRequired,
   onSelectSuggest: PropTypes.func,
-  renderSuggest: PropTypes.func,
-  search: PropTypes.string,
-  suggestRadius: PropTypes.number,
-  suggestTypes: PropTypes.array,
-  suggestComponentRestrictions: PropTypes.object,
+  customRender: PropTypes.func,
+  autocompletionRequest: PropTypes.shape({
+    input: PropTypes.string.isRequired,
+  }).isRequired,
   textNoResults: PropTypes.string,
 }
 
 GooglePlacesSuggest.defaultProps = {
   onSelectSuggest: () => {},
-  search: "",
-  suggestRadius: 20,  
-  suggestTypes: [],
-  suggestComponentRestrictions: {
-    country: ""
-  },
-  textNoResults: "No results",
 }
 
 export default GooglePlacesSuggest

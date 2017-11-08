@@ -1,18 +1,28 @@
-# react-google-places-suggest ![npm](https://img.shields.io/npm/v/react-google-places-suggest.svg) ![license](https://img.shields.io/npm/l/react-google-places-suggest.svg)
+# react-google-places-suggest
+
+[![npm package][npm-badge]][npm]
+[![Travis][build-badge]][build]
+[![Codecov][codecov-badge]][codecov]
+![Module formats][module-formats]
 
 React component to select geolocated suggestion from Google Maps Places API
 
-![react-google-places-suggest example](/screenshots/react-google-places-suggest-exemple.png)
+## Getting started
 
-## Install
+[![react-google-places-suggest](https://nodei.co/npm/react-google-places-suggest.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-google-places-suggest/)
 
-```sh
-npm install --save react-google-places-suggest
+You can download `react-google-places-suggest` from the NPM registry via the `npm` or `yarn` commands
+
+```shell
+yarn add react-google-places-suggest
+npm install react-google-places-suggest --save
 ```
 
-## Changelog
+If you don't use package manager and you want to include `react-google-places-suggest` directly in your html, you could get it from the UNPKG CDN
 
-See [changelog](./CHANGELOG.md)
+```html
+https://unpkg.com/react-google-places-suggest/umd/react-google-places-suggest.js
+```
 
 ## Usage
 
@@ -24,89 +34,92 @@ import "react-google-places-suggest/lib/index.css"
 
 const MY_API_KEY = "AIzaSyDwsdjfskhdbfjsdjbfksiTgnoriOAoUOgsUqOs10J0" // fake
 
-export default class MyGoogleSuggest extends Component {
+export default class GoogleSuggest extends React.Component {
   state = {
     search: "",
-    selectedCoordinate: null,
+    value: "",
   }
 
-  handleSearchChange = (e) => {
-    this.setState({search: e.target.value})
+  handleInputChange(e) {
+    this.setState({search: e.target.value, value: e.target.value})
   }
 
-  handleSelectSuggest = (suggest, coordinate) => {
-    this.setState({search: suggest.description, selectedCoordinate: coordinate})
+  handleSelectSuggest(suggest) {
+    console.log(suggest) // eslint-disable-line
+    this.setState({search: "", value: suggest.formatted_address})
   }
 
   render() {
-    const {search} = this.state
-    const {googleMaps} = this.props
-
+    const {search, value} = this.state
     return (
-      <GooglePlacesSuggest
-        googleMaps={googleMaps}
-        onSelectSuggest={this.handleSelectSuggest}
-        search={search}
-      >
-        <input
-          type="text"
-          value={search }
-          placeholder="Search a location"
-          onChange={this.handleSearchChange}
-        />
-      </GooglePlacesSuggest>
+      <ReactGoogleMapLoader
+        params={{
+          key: MY_API_KEY,
+          libraries: "places,geocode",
+        }}
+        render={googleMaps =>
+          googleMaps && (
+            <div>
+              <ReactGooglePlacesSuggest
+                autocompletionRequest={{input: search}}
+                googleMaps={googleMaps}
+                onSelectSuggest={this.handleSelectSuggest.bind(this)}
+              >
+                <input
+                  type="text"
+                  value={value}
+                  placeholder="Search a location"
+                  onChange={this.handleInputChange.bind(this)}
+                />
+              </ReactGooglePlacesSuggest>
+            </div>
+          )
+        }
+      />
     )
   }
 }
-
-export default GoogleMapLoader(MyGoogleSuggest, {
-  libraries: ["places"],
-  key: MY_API_KEY,
-})
 ```
+## Demo
+
+See [Demo page][github-page]
 
 ## Props
-  * `googleMaps`: Object - injected by GoogleMapLoader,
-  * `onSelectSuggest`: Function with two parameters (`onSelectSuggest: (suggest, coordinate) => {}`),
-  * `renderSuggest`: Function with one parameter (`renderSuggest: (suggest) => {}`),
-  * `search`: String - the search query,
-  * `suggestRadius`: Number - default 20,
-  * `suggestTypes`: String Array - default [] - accepts string values as defined by [Google API docs](https://developers.google.com/maps/documentation/javascript/places-autocomplete),
-  * `suggestComponentRestrictions`: Object - default { country: "" }  - accepts values defined by [Google API docs](https://developers.google.com/maps/documentation/javascript/places-autocomplete),
-  * `textNoResults`: String - default "No results" - null to disable,
 
-## Development
+|Name|PropType|Description|Example
+|---|---|---|---
+|googleMaps|object|injected by `react-google-maps-loader`|-
+|onSelectSuggest|function|Handle click on suggest|`(suggest) => {}`
+|customRender|function|Customize list item|`(suggest) => {}`
+|autocompletionRequest|object|[Google map object Object](https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest)|`{input: "Toulouse"}`
+|textNoResults|String|No results text, null to disable|`No results`
 
-### Clean `lib` folder
+## Contributing
 
-```js
-npm run clean
-```
+* ⇄ Pull/Merge requests and ★ Stars are always welcome.
+* For bugs and feature requests, please [create an issue][github-issue].
+* Pull requests must be accompanied by passing automated tests (`npm test`).
 
-### Build `lib` folder
+See [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines
 
-```js
-npm run build
-```
+## Changelog
 
-### Build `dist` folder
-
-```js
-npm run dist
-```
-
-### Watch `src` folder
-
-```js
-npm run watch
-```
-
-### Lint `src` folder
-
-```js
-npm run lint
-```
+See [CHANGELOG.md](./CHANGELOG.md)
 
 ## License
 
-See [MIT](./LICENCE)
+This project is licensed under the MIT License - see the [LICENCE.md](./LICENCE.md) file for details
+
+[npm-badge]: https://img.shields.io/npm/v/react-google-places-suggest.svg?style=flat-square
+[npm]: https://www.npmjs.org/package/react-google-places-suggest
+
+[build-badge]: https://img.shields.io/travis/xuopled/react-google-places-suggest/master.svg?style=flat-square
+[build]: https://travis-ci.org/xuopled/react-google-places-suggest
+
+[codecov-badge]: https://img.shields.io/codecov/c/github/xuopled/react-google-places-suggest.svg?style=flat-square
+[codecov]: https://codecov.io/gh/xuopled/react-google-places-suggest
+
+[module-formats]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg?style=flat-square
+
+[github-page]: https://xuopled.github.io/react-google-places-suggest
+[github-issue]: https://github.com/xuopled/react-google-places-suggest/issues/new
