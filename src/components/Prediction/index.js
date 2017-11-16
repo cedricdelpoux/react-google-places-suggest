@@ -2,11 +2,6 @@ import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
 
-const Wrapper = styled.div`
-  font-size: 0.8125rem;
-  color: #000;
-`
-
 const Match = styled.span`
   font-weight: bold;
 `
@@ -33,7 +28,7 @@ const Prediction = ({item}) => {
   }
 
   return (
-    <Wrapper>
+    <div>
       {labelParts ? (
         <span>
           {labelParts.before}
@@ -43,7 +38,7 @@ const Prediction = ({item}) => {
       ) : (
         description
       )}
-    </Wrapper>
+    </div>
   )
 }
 

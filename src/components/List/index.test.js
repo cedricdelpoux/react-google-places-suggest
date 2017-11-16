@@ -18,11 +18,15 @@ const ListFixture = (
 )
 
 const ListEmptyFixture = <List />
+const ListCustomFixture = (
+  <List customRender={prediction => prediction && prediction.description} />
+)
 
 describe("Suggest", () => {
   it("renders", () => {
     mount(ListFixture)
     mount(ListEmptyFixture)
+    mount(ListCustomFixture)
   })
 
   it("has one child", () => {

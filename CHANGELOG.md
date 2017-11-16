@@ -1,3 +1,8 @@
+# 3.1.0 - 2017-11-16
+
+* Updated: `textNoResults` can be used
+* Updated: `customRender` is more powerfull
+
 # 3.0.0 - 2017-11-08
 
 * Removed: `webpack` build

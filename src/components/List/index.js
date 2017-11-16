@@ -17,23 +17,39 @@ const Wrapper = styled.div`
   z-index: 2;
 `
 
-const List = ({customRender, items, activeItemIndex, onSelect}) => (
-  <Wrapper>
-    {items.length > 0 ? (
-      items.map((item, index) => (
-        <ListItem
-          key={index}
-          active={activeItemIndex === index}
-          customRender={customRender}
-          onClick={item => onSelect(item)}
-          item={item}
-        />
-      ))
-    ) : (
-      <ListItem customRender={customRender} />
-    )}
-  </Wrapper>
-)
+const List = ({
+  customRender,
+  items,
+  activeItemIndex,
+  onSelect,
+  textNoResults,
+}) => {
+  if (items.length > 0) {
+    return (
+      <Wrapper>
+        {items.map((item, index) => (
+          <ListItem
+            key={index}
+            active={activeItemIndex === index}
+            customRender={customRender}
+            onClick={item => onSelect(item)}
+            item={item}
+          />
+        ))}
+      </Wrapper>
+    )
+  }
+
+  if (textNoResults || customRender) {
+    return (
+      <Wrapper>
+        <ListItem customRender={customRender} textNoResults={textNoResults} />
+      </Wrapper>
+    )
+  }
+
+  return null
+}
 
 List.propTypes = {
   activeItemIndex: PropTypes.number,
@@ -54,6 +70,7 @@ List.propTypes = {
   ]),
   onSelect: PropTypes.func,
   customRender: PropTypes.func,
+  textNoResults: PropTypes.string,
 }
 
 List.defaultProps = {
