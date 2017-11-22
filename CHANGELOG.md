@@ -1,3 +1,8 @@
+# 3.2.1 - 2017-11-22
+
+* Updated: Use React 15 to run test because React 16 is not fully compatible
+  with enzyme
+
 # 3.2.0 - 2017-11-22
 
 * Updated: React v16.0.0 as peer dependency
