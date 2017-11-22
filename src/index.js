@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import React, {Component} from "react"
+import React from "react"
 import styled from "styled-components"
 
 import List from "./components/List"
@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   position: relative;
 `
 
-class GooglePlacesSuggest extends Component {
+class GooglePlacesSuggest extends React.Component {
   constructor(props) {
     super()
 

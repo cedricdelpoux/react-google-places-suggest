@@ -1,3 +1,8 @@
+# 3.2.0 - 2017-11-22
+
+* Updated: React v16.0.0 as peer dependency
+* Updated: React DOM v16.0.0 as peer dependency
+
 # 3.1.0 - 2017-11-16
 
 * Updated: `textNoResults` can be used
