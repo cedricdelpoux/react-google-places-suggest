@@ -1,6 +1,6 @@
 {
   "name": "react-google-places-suggest",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "author": {
     "name": "Cédric Delpoux",
     "email": "xuopled@gmail.com"
@@ -20,7 +20,6 @@
   "license": "MIT",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "style": "umd/index.css",
   "scripts": {
     "build": "nwb build-react-component",
     "clean": "nwb clean-module && nwb clean-demo",
