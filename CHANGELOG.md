@@ -1,3 +1,7 @@
+# 3.3.0 - 2018-01-30
+
+* Added: Original prediction ad argument to `onSelectSuggest` by @emguide
+
 # 3.2.1 - 2017-11-22
 
 * Updated: Use React 15 to run test because React 16 is not fully compatible

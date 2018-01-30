@@ -35,60 +35,60 @@ import GooglePlacesSuggest from "react-google-places-suggest"
 const MY_API_KEY = "AIzaSyDwsdjfskhdbfjsdjbfksiTgnoriOAoUOgsUqOs10J0" // fake
 
 export default class GoogleSuggest extends React.Component {
-  state = {
-    search: "",
-    value: "",
-  }
+    state = {
+        search: "",
+        value: "",
+    }
 
-  handleInputChange(e) {
-    this.setState({search: e.target.value, value: e.target.value})
-  }
+    handleInputChange = e => {
+        this.setState({search: e.target.value, value: e.target.value})
+    }
 
-  handleSelectSuggest(suggest) {
-    console.log(suggest) // eslint-disable-line
-    this.setState({search: "", value: suggest.formatted_address})
-  }
+    handleSelectSuggest = (geocodedPrediction, originalPrediction) => {
+        console.log(geocodedPrediction, originalPrediction) // eslint-disable-line
+        this.setState({search: "", value: geocodedPrediction.formatted_address})
+    }
 
-  render() {
-    const {search, value} = this.state
-    return (
-      <ReactGoogleMapLoader
-        params={{
-          key: MY_API_KEY,
-          libraries: "places,geocode",
-        }}
-        render={googleMaps =>
-          googleMaps && (
-            <ReactGooglePlacesSuggest
-              googleMaps={googleMaps}
-              autocompletionRequest={{
-                input: search,
-                // Optional options
-                // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
-              }}
-              // Optional props
-              onSelectSuggest={this.handleSelectSuggest.bind(this)}
-              textNoResults="My custom no results text" // null or "" if you want to disable the no results item
-              customRender={prediction => (
-                <div className="customWrapper">
-                  {prediction
-                    ? prediction.description
-                    : "My custom no results text"}
-                </div>
-              )}
-            >
-              <input
-                type="text"
-                value={value}
-                placeholder="Search a location"
-                onChange={this.handleInputChange.bind(this)}
-              />
-            </ReactGooglePlacesSuggest>
-          )
-        }
-      />
-    )
-  }
+    render() {
+        const {search, value} = this.state
+        return (
+            <ReactGoogleMapLoader
+                params={{
+                    key: MY_API_KEY,
+                    libraries: "places,geocode",
+                }}
+                render={googleMaps =>
+                    googleMaps && (
+                        <ReactGooglePlacesSuggest
+                            googleMaps={googleMaps}
+                            autocompletionRequest={{
+                                input: search,
+                                // Optional options
+                                // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
+                            }}
+                            // Optional props
+                            onSelectSuggest={this.handleSelectSuggest}
+                            textNoResults="My custom no results text" // null or "" if you want to disable the no results item
+                            customRender={prediction => (
+                                <div className="customWrapper">
+                                    {prediction
+                                        ? prediction.description
+                                        : "My custom no results text"}
+                                </div>
+                            )}
+                        >
+                            <input
+                                type="text"
+                                value={value}
+                                placeholder="Search a location"
+                                onChange={this.handleInputChange}
+                            />
+                        </ReactGooglePlacesSuggest>
+                    )
+                }
+            />
+        )
+    }
 }
 ```
 
@@ -98,13 +98,13 @@ See [Demo page][github-page]
 
 ## Props
 
-| Name                  | PropType | Description                                                                                                                   | Example                                                            |
-| --------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| googleMaps            | object   | injected by `react-google-maps-loader`                                                                                        | -                                                                  |
-| onSelectSuggest       | function | Handle click on suggest                                                                                                       | `prediction => {console.log(prediction)}`                          |
-| customRender          | function | Customize list item                                                                                                           | `prediction => prediction ? prediction.description : "no results"` |
-| autocompletionRequest | object   | [Google map object Object](https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest) | `{input: "Toulouse"}`                                              |
-| textNoResults         | String   | No results text, null to disable                                                                                              | `No results`                                                       |
+| Name                  | PropType | Description                                                                                                                   | Example                                                                                             |
+| --------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| googleMaps            | object   | injected by `react-google-maps-loader`                                                                                        | -                                                                                                   |
+| onSelectSuggest       | function | Handle click on suggest                                                                                                       | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
+| customRender          | function | Customize list item                                                                                                           | `prediction => prediction ? prediction.description : "no results"`                                  |
+| autocompletionRequest | object   | [Google map object Object](https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest) | `{input: "Toulouse"}`                                                                               |
+| textNoResults         | String   | No results text, null to disable                                                                                              | `No results`                                                                                        |
 
 ## Contributing
 
