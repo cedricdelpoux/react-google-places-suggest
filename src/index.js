@@ -44,7 +44,7 @@ class GooglePlacesSuggest extends React.Component {
       },
       () => {
         this.geocodePrediction(suggest.description, result => {
-          onSelectSuggest(result)
+          onSelectSuggest(result, suggest)
         })
       }
     )
