@@ -1,3 +1,8 @@
+# 3.3.1 - 2018-02-07
+
+* Fixed: styled-components as dependency
+* Removed: classnames as dependency
+
 # 3.3.0 - 2018-01-30
 
 * Added: Original prediction ad argument to `onSelectSuggest` by @emguide
