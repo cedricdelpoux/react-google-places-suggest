@@ -17,38 +17,49 @@ const Wrapper = styled.div`
   z-index: 2;
 `
 
-const List = ({
-  customRender,
-  items,
-  activeItemIndex,
-  onSelect,
-  textNoResults,
-}) => {
-  if (items.length > 0) {
-    return (
-      <Wrapper>
-        {items.map((item, index) => (
-          <ListItem
-            key={index}
-            active={activeItemIndex === index}
-            customRender={customRender}
-            onClick={item => onSelect(item)}
-            item={item}
-          />
-        ))}
-      </Wrapper>
-    )
+class List extends React.Component {
+  renderDefault() {
+    const {
+      customRender,
+      items,
+      activeItemIndex,
+      onSelect,
+      textNoResults,
+    } = this.props
+
+    if (items.length > 0) {
+      return (
+        <Wrapper>
+          {items.map((item, index) => (
+            <ListItem
+              key={index}
+              active={activeItemIndex === index}
+              customRender={customRender}
+              onClick={item => onSelect(item)}
+              item={item}
+            />
+          ))}
+        </Wrapper>
+      )
+    }
+
+    if (textNoResults || customRender) {
+      return (
+        <Wrapper>
+          <ListItem customRender={customRender} textNoResults={textNoResults} />
+        </Wrapper>
+      )
+    }
+
+    return null
   }
 
-  if (textNoResults || customRender) {
-    return (
-      <Wrapper>
-        <ListItem customRender={customRender} textNoResults={textNoResults} />
-      </Wrapper>
-    )
+  render() {
+    const {customContainerRender, items} = this.props
+    return customContainerRender
+      ? customContainerRender(items)
+      : this.renderDefault(items)
   }
-
-  return null
 }
 
 List.propTypes = {
@@ -69,6 +80,7 @@ List.propTypes = {
     PropTypes.instanceOf(ListItem),
   ]),
   onSelect: PropTypes.func,
+  customContainerRender: PropTypes.func,
   customRender: PropTypes.func,
   textNoResults: PropTypes.string,
 }

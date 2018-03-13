@@ -103,6 +103,8 @@ See [Demo page][github-page]
 | googleMaps            | object   | injected by `react-google-maps-loader`                                                                                        | -                                                                                                   |
 | onSelectSuggest       | function | Handle click on suggest                                                                                                       | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
 | customRender          | function | Customize list item                                                                                                           | `prediction => prediction ? prediction.description : "no results"`                                  |
+| customContainerRender | function | Customize list                                                                                                                | `items => <CustomWrapper>{items.map(item => <ItemWrapper>{item.description}</ItemWrapper>)}         |
+|                       |
 | autocompletionRequest | object   | [Google map object Object](https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest) | `{input: "Toulouse"}`                                                                               |
 | textNoResults         | String   | No results text, null to disable                                                                                              | `No results`                                                                                        |
 

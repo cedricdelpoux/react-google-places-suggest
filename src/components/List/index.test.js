@@ -18,7 +18,18 @@ const ListFixture = (
 )
 
 const ListEmptyFixture = <List />
+const customLabel = "List"
 const ListCustomFixture = (
+  <List
+    customContainerRender={items => (
+      <div>
+        {customLabel}
+        {items.map(item => item.description)}
+      </div>
+    )}
+  />
+)
+const ListCustomItemFixture = (
   <List customRender={prediction => prediction && prediction.description} />
 )
 
@@ -27,11 +38,17 @@ describe("Suggest", () => {
     mount(ListFixture)
     mount(ListEmptyFixture)
     mount(ListCustomFixture)
+    mount(ListCustomItemFixture)
   })
 
   it("has one child", () => {
     const list = shallow(ListFixture)
     expect(list.find(ListItem)).toHaveLength(1)
+  })
+
+  it("uses customContainerRender prop", () => {
+    const list = shallow(ListCustomFixture)
+    expect(list.html()).toContain(customLabel)
   })
 
   it("calls onSelect when item is clicked", () => {

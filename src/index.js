@@ -117,7 +117,12 @@ class GooglePlacesSuggest extends React.Component {
 
   render() {
     const {focusedPredictionIndex, open, predictions} = this.state
-    const {children, customRender, textNoResults} = this.props
+    const {
+      children,
+      customContainerRender,
+      customRender,
+      textNoResults,
+    } = this.props
     return (
       <Wrapper onKeyDown={this.handleKeyDown}>
         {children}
@@ -125,6 +130,7 @@ class GooglePlacesSuggest extends React.Component {
           <List
             items={predictions}
             activeItemIndex={focusedPredictionIndex}
+            customContainerRender={customContainerRender}
             customRender={customRender}
             onSelect={suggest => this.handleSelectPrediction(suggest)}
             textNoResults={textNoResults}
@@ -139,6 +145,7 @@ GooglePlacesSuggest.propTypes = {
   children: PropTypes.any.isRequired,
   googleMaps: PropTypes.object.isRequired,
   onSelectSuggest: PropTypes.func,
+  customContainerRender: PropTypes.func,
   customRender: PropTypes.func,
   autocompletionRequest: PropTypes.shape({
     input: PropTypes.string.isRequired,

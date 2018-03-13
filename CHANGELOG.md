@@ -1,3 +1,7 @@
+# 3.4.0 - 2018-03-13
+
+* Added: customContainerRender prop
+
 # 3.3.1 - 2018-02-07
 
 * Fixed: styled-components as dependency
