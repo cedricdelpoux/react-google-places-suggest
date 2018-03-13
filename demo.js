@@ -3,7 +3,7 @@ webpackJsonp([0],{
 /***/ "./README.md":
 /***/ (function(module, exports) {
 
-module.exports = "<h1 id=\"react-google-places-suggest\">react-google-places-suggest</h1>\n<p><a href=\"https://www.npmjs.org/package/react-google-places-suggest\"><img src=\"https://img.shields.io/npm/v/react-google-places-suggest.svg?style=flat-square\" alt=\"npm package\"></a> <a href=\"https://travis-ci.org/xuopled/react-google-places-suggest\"><img src=\"https://img.shields.io/travis/xuopled/react-google-places-suggest/master.svg?style=flat-square\" alt=\"Travis\"></a>\n<a href=\"https://codecov.io/gh/xuopled/react-google-places-suggest\"><img src=\"https://img.shields.io/codecov/c/github/xuopled/react-google-places-suggest.svg?style=flat-square\" alt=\"Codecov\"></a> <img src=\"https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg?style=flat-square\" alt=\"Module formats\"></p>\n<p>React component to select geolocated suggestion from Google Maps Places API</p>\n<h2 id=\"getting-started\">Getting started</h2>\n<p><a href=\"https://nodei.co/npm/react-google-places-suggest/\"><img src=\"https://nodei.co/npm/react-google-places-suggest.png?downloads=true&amp;downloadRank=true&amp;stars=true\" alt=\"react-google-places-suggest\"></a></p>\n<p>You can download <code>react-google-places-suggest</code> from the NPM registry via the\n<code>npm</code> or <code>yarn</code> commands</p>\n<pre><code class=\"lang-shell\">yarn add react-google-places-suggest\nnpm install react-google-places-suggest --save\n</code></pre>\n<p>If you don&#39;t use package manager and you want to include\n<code>react-google-places-suggest</code> directly in your html, you could get it from the\nUNPKG CDN</p>\n<pre><code class=\"lang-html\">https://unpkg.com/react-google-places-suggest/umd/react-google-places-suggest.js\n</code></pre>\n<h2 id=\"usage\">Usage</h2>\n<pre><code class=\"lang-js\">import React, {Component} from &quot;react&quot;\nimport GoogleMapLoader from &quot;react-google-maps-loader&quot;\nimport GooglePlacesSuggest from &quot;react-google-places-suggest&quot;\n\nconst MY_API_KEY = &quot;AIzaSyDwsdjfskhdbfjsdjbfksiTgnoriOAoUOgsUqOs10J0&quot; // fake\n\nexport default class GoogleSuggest extends React.Component {\n    state = {\n        search: &quot;&quot;,\n        value: &quot;&quot;,\n    }\n\n    handleInputChange = e =&gt; {\n        this.setState({search: e.target.value, value: e.target.value})\n    }\n\n    handleSelectSuggest = (geocodedPrediction, originalPrediction) =&gt; {\n        console.log(geocodedPrediction, originalPrediction) // eslint-disable-line\n        this.setState({search: &quot;&quot;, value: geocodedPrediction.formatted_address})\n    }\n\n    render() {\n        const {search, value} = this.state\n        return (\n            &lt;ReactGoogleMapLoader\n                params={{\n                    key: MY_API_KEY,\n                    libraries: &quot;places,geocode&quot;,\n                }}\n                render={googleMaps =&gt;\n                    googleMaps &amp;&amp; (\n                        &lt;ReactGooglePlacesSuggest\n                            googleMaps={googleMaps}\n                            autocompletionRequest={{\n                                input: search,\n                                // Optional options\n                                // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest\n                            }}\n                            // Optional props\n                            onSelectSuggest={this.handleSelectSuggest}\n                            textNoResults=&quot;My custom no results text&quot; // null or &quot;&quot; if you want to disable the no results item\n                            customRender={prediction =&gt; (\n                                &lt;div className=&quot;customWrapper&quot;&gt;\n                                    {prediction\n                                        ? prediction.description\n                                        : &quot;My custom no results text&quot;}\n                                &lt;/div&gt;\n                            )}\n                        &gt;\n                            &lt;input\n                                type=&quot;text&quot;\n                                value={value}\n                                placeholder=&quot;Search a location&quot;\n                                onChange={this.handleInputChange}\n                            /&gt;\n                        &lt;/ReactGooglePlacesSuggest&gt;\n                    )\n                }\n            /&gt;\n        )\n    }\n}\n</code></pre>\n<h2 id=\"demo\">Demo</h2>\n<p>See <a href=\"https://xuopled.github.io/react-google-places-suggest\">Demo page</a></p>\n<h2 id=\"props\">Props</h2>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>PropType</th>\n<th>Description</th>\n<th>Example</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>googleMaps</td>\n<td>object</td>\n<td>injected by <code>react-google-maps-loader</code></td>\n<td>-</td>\n</tr>\n<tr>\n<td>onSelectSuggest</td>\n<td>function</td>\n<td>Handle click on suggest</td>\n<td><code>(geocodedPrediction, originalPrediction) =&gt; {console.log(geocodedPrediction, originalPrediction)}</code></td>\n</tr>\n<tr>\n<td>customRender</td>\n<td>function</td>\n<td>Customize list item</td>\n<td><code>prediction =&gt; prediction ? prediction.description : &quot;no results&quot;</code></td>\n</tr>\n<tr>\n<td>autocompletionRequest</td>\n<td>object</td>\n<td><a href=\"https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest\">Google map object Object</a></td>\n<td><code>{input: &quot;Toulouse&quot;}</code></td>\n</tr>\n<tr>\n<td>textNoResults</td>\n<td>String</td>\n<td>No results text, null to disable</td>\n<td><code>No results</code></td>\n</tr>\n</tbody>\n</table>\n<h2 id=\"contributing\">Contributing</h2>\n<ul>\n<li>⇄ Pull/Merge requests and ★ Stars are always welcome.</li>\n<li>For bugs and feature requests, please <a href=\"https://github.com/xuopled/react-google-places-suggest/issues/new\">create an issue</a>.</li>\n<li>Pull requests must be accompanied by passing automated tests (<code>npm test</code>).</li>\n</ul>\n<p>See <a href=\"./CONTRIBUTING.md\">CONTRIBUTING.md</a> guidelines</p>\n<h2 id=\"changelog\">Changelog</h2>\n<p>See <a href=\"./CHANGELOG.md\">CHANGELOG.md</a></p>\n<h2 id=\"license\">License</h2>\n<p>This project is licensed under the MIT License - see the\n<a href=\"./LICENCE.md\">LICENCE.md</a> file for details</p>\n";
+module.exports = "<h1 id=\"react-google-places-suggest\">react-google-places-suggest</h1>\n<p><a href=\"https://www.npmjs.org/package/react-google-places-suggest\"><img src=\"https://img.shields.io/npm/v/react-google-places-suggest.svg?style=flat-square\" alt=\"npm package\"></a> <a href=\"https://travis-ci.org/xuopled/react-google-places-suggest\"><img src=\"https://img.shields.io/travis/xuopled/react-google-places-suggest/master.svg?style=flat-square\" alt=\"Travis\"></a>\n<a href=\"https://codecov.io/gh/xuopled/react-google-places-suggest\"><img src=\"https://img.shields.io/codecov/c/github/xuopled/react-google-places-suggest.svg?style=flat-square\" alt=\"Codecov\"></a> <img src=\"https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg?style=flat-square\" alt=\"Module formats\"></p>\n<p>React component to select geolocated suggestion from Google Maps Places API</p>\n<h2 id=\"getting-started\">Getting started</h2>\n<p><a href=\"https://nodei.co/npm/react-google-places-suggest/\"><img src=\"https://nodei.co/npm/react-google-places-suggest.png?downloads=true&amp;downloadRank=true&amp;stars=true\" alt=\"react-google-places-suggest\"></a></p>\n<p>You can download <code>react-google-places-suggest</code> from the NPM registry via the\n<code>npm</code> or <code>yarn</code> commands</p>\n<pre><code class=\"lang-shell\">yarn add react-google-places-suggest\nnpm install react-google-places-suggest --save\n</code></pre>\n<p>If you don&#39;t use package manager and you want to include\n<code>react-google-places-suggest</code> directly in your html, you could get it from the\nUNPKG CDN</p>\n<pre><code class=\"lang-html\">https://unpkg.com/react-google-places-suggest/umd/react-google-places-suggest.js\n</code></pre>\n<h2 id=\"usage\">Usage</h2>\n<pre><code class=\"lang-js\">import React, {Component} from &quot;react&quot;\nimport GoogleMapLoader from &quot;react-google-maps-loader&quot;\nimport GooglePlacesSuggest from &quot;react-google-places-suggest&quot;\n\nconst MY_API_KEY = &quot;AIzaSyDwsdjfskhdbfjsdjbfksiTgnoriOAoUOgsUqOs10J0&quot; // fake\n\nexport default class GoogleSuggest extends React.Component {\n    state = {\n        search: &quot;&quot;,\n        value: &quot;&quot;,\n    }\n\n    handleInputChange = e =&gt; {\n        this.setState({search: e.target.value, value: e.target.value})\n    }\n\n    handleSelectSuggest = (geocodedPrediction, originalPrediction) =&gt; {\n        console.log(geocodedPrediction, originalPrediction) // eslint-disable-line\n        this.setState({search: &quot;&quot;, value: geocodedPrediction.formatted_address})\n    }\n\n    render() {\n        const {search, value} = this.state\n        return (\n            &lt;ReactGoogleMapLoader\n                params={{\n                    key: MY_API_KEY,\n                    libraries: &quot;places,geocode&quot;,\n                }}\n                render={googleMaps =&gt;\n                    googleMaps &amp;&amp; (\n                        &lt;ReactGooglePlacesSuggest\n                            googleMaps={googleMaps}\n                            autocompletionRequest={{\n                                input: search,\n                                // Optional options\n                                // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest\n                            }}\n                            // Optional props\n                            onSelectSuggest={this.handleSelectSuggest}\n                            textNoResults=&quot;My custom no results text&quot; // null or &quot;&quot; if you want to disable the no results item\n                            customRender={prediction =&gt; (\n                                &lt;div className=&quot;customWrapper&quot;&gt;\n                                    {prediction\n                                        ? prediction.description\n                                        : &quot;My custom no results text&quot;}\n                                &lt;/div&gt;\n                            )}\n                        &gt;\n                            &lt;input\n                                type=&quot;text&quot;\n                                value={value}\n                                placeholder=&quot;Search a location&quot;\n                                onChange={this.handleInputChange}\n                            /&gt;\n                        &lt;/ReactGooglePlacesSuggest&gt;\n                    )\n                }\n            /&gt;\n        )\n    }\n}\n</code></pre>\n<h2 id=\"demo\">Demo</h2>\n<p>See <a href=\"https://xuopled.github.io/react-google-places-suggest\">Demo page</a></p>\n<h2 id=\"props\">Props</h2>\n<table>\n<thead>\n<tr>\n<th>Name</th>\n<th>PropType</th>\n<th>Description</th>\n<th>Example</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>googleMaps</td>\n<td>object</td>\n<td>injected by <code>react-google-maps-loader</code></td>\n<td>-</td>\n</tr>\n<tr>\n<td>onSelectSuggest</td>\n<td>function</td>\n<td>Handle click on suggest</td>\n<td><code>(geocodedPrediction, originalPrediction) =&gt; {console.log(geocodedPrediction, originalPrediction)}</code></td>\n</tr>\n<tr>\n<td>customRender</td>\n<td>function</td>\n<td>Customize list item</td>\n<td><code>prediction =&gt; prediction ? prediction.description : &quot;no results&quot;</code></td>\n</tr>\n<tr>\n<td>customContainerRender</td>\n<td>function</td>\n<td>Customize list</td>\n<td>`items =&gt; <CustomWrapper>{items.map(item =&gt; <ItemWrapper>{item}</ItemWrapper>)}</td>\n</tr>\n<tr>\n<td></td>\n</tr>\n<tr>\n<td>autocompletionRequest</td>\n<td>object</td>\n<td><a href=\"https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest\">Google map object Object</a></td>\n<td><code>{input: &quot;Toulouse&quot;}</code></td>\n</tr>\n<tr>\n<td>textNoResults</td>\n<td>String</td>\n<td>No results text, null to disable</td>\n<td><code>No results</code></td>\n</tr>\n</tbody>\n</table>\n<h2 id=\"contributing\">Contributing</h2>\n<ul>\n<li>⇄ Pull/Merge requests and ★ Stars are always welcome.</li>\n<li>For bugs and feature requests, please <a href=\"https://github.com/xuopled/react-google-places-suggest/issues/new\">create an issue</a>.</li>\n<li>Pull requests must be accompanied by passing automated tests (<code>npm test</code>).</li>\n</ul>\n<p>See <a href=\"./CONTRIBUTING.md\">CONTRIBUTING.md</a> guidelines</p>\n<h2 id=\"changelog\">Changelog</h2>\n<p>See <a href=\"./CHANGELOG.md\">CHANGELOG.md</a></p>\n<h2 id=\"license\">License</h2>\n<p>This project is licensed under the MIT License - see the\n<a href=\"./LICENCE.md\">LICENCE.md</a> file for details</p>\n";
 
 /***/ }),
 
@@ -85,7 +85,17 @@ var GoogleSuggest = function (_React$Component) {
             {
               autocompletionRequest: { input: search },
               googleMaps: googleMaps,
-              onSelectSuggest: _this2.handleSelectSuggest.bind(_this2)
+              onSelectSuggest: _this2.handleSelectSuggest.bind(_this2),
+              customContainerRender: function customContainerRender(items) {
+                return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+                  "div",
+                  null,
+                  "custom render label",
+                  items.map(function (item) {
+                    return item;
+                  })
+                );
+              }
             },
             __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", {
               type: "text",
@@ -41963,6 +41973,12 @@ module.exports = {"name":"react-google-places-suggest","version":"3.3.1","author
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ListItem__ = __webpack_require__("./src/components/ListItem/index.js");
 var _templateObject = _taggedTemplateLiteralLoose(["\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  background: white;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  box-shadow: 0 0.4rem 0.5rem 0.0625rem #dbdbdc;\n  z-index: 2;\n"], ["\n  position: absolute;\n  top: 100%;\n  left: 0;\n  right: 0;\n  background: white;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n  box-shadow: 0 0.4rem 0.5rem 0.0625rem #dbdbdc;\n  z-index: 2;\n"]);
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 function _taggedTemplateLiteralLoose(strings, raw) { strings.raw = raw; return strings; }
 
 
@@ -41973,41 +41989,63 @@ function _taggedTemplateLiteralLoose(strings, raw) { strings.raw = raw; return s
 
 var Wrapper = __WEBPACK_IMPORTED_MODULE_2_styled_components__["a" /* default */].div(_templateObject);
 
-var List = function List(_ref) {
-  var customRender = _ref.customRender,
-      items = _ref.items,
-      activeItemIndex = _ref.activeItemIndex,
-      onSelect = _ref.onSelect,
-      textNoResults = _ref.textNoResults;
+var List = function (_React$Component) {
+  _inherits(List, _React$Component);
 
-  if (items.length > 0) {
-    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-      Wrapper,
-      null,
-      items.map(function (item, index) {
-        return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ListItem__["a" /* default */], {
-          key: index,
-          active: activeItemIndex === index,
-          customRender: customRender,
-          onClick: function onClick(item) {
-            return onSelect(item);
-          },
-          item: item
-        });
-      })
-    );
+  function List() {
+    _classCallCheck(this, List);
+
+    return _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
   }
 
-  if (textNoResults || customRender) {
-    return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-      Wrapper,
-      null,
-      __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ListItem__["a" /* default */], { customRender: customRender, textNoResults: textNoResults })
-    );
-  }
+  List.prototype.renderDefault = function renderDefault() {
+    var _props = this.props,
+        customRender = _props.customRender,
+        items = _props.items,
+        activeItemIndex = _props.activeItemIndex,
+        onSelect = _props.onSelect,
+        textNoResults = _props.textNoResults;
 
-  return null;
-};
+
+    if (items.length > 0) {
+      return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+        Wrapper,
+        null,
+        items.map(function (item, index) {
+          return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ListItem__["a" /* default */], {
+            key: index,
+            active: activeItemIndex === index,
+            customRender: customRender,
+            onClick: function onClick(item) {
+              return onSelect(item);
+            },
+            item: item
+          });
+        })
+      );
+    }
+
+    if (textNoResults || customRender) {
+      return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
+        Wrapper,
+        null,
+        __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ListItem__["a" /* default */], { customRender: customRender, textNoResults: textNoResults })
+      );
+    }
+
+    return null;
+  };
+
+  List.prototype.render = function render() {
+    var _props2 = this.props,
+        customContainerRender = _props2.customContainerRender,
+        items = _props2.items;
+
+    return customContainerRender ? customContainerRender(items) : this.renderDefault(items);
+  };
+
+  return List;
+}(__WEBPACK_IMPORTED_MODULE_1_react___default.a.Component);
 
 List.propTypes = {
   activeItemIndex: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.number,
@@ -42020,6 +42058,7 @@ List.propTypes = {
   })),
   children: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.arrayOf(__WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.instanceOf(__WEBPACK_IMPORTED_MODULE_3__ListItem__["a" /* default */])), __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.instanceOf(__WEBPACK_IMPORTED_MODULE_3__ListItem__["a" /* default */])]),
   onSelect: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.func,
+  customContainerRender: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.func,
   customRender: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.func,
   textNoResults: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string
 };
@@ -42349,6 +42388,7 @@ var GooglePlacesSuggest = function (_React$Component) {
         predictions = _state2.predictions;
     var _props = this.props,
         children = _props.children,
+        customContainerRender = _props.customContainerRender,
         customRender = _props.customRender,
         textNoResults = _props.textNoResults;
 
@@ -42359,6 +42399,7 @@ var GooglePlacesSuggest = function (_React$Component) {
       open && __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__components_List__["a" /* default */], {
         items: predictions,
         activeItemIndex: focusedPredictionIndex,
+        customContainerRender: customContainerRender,
         customRender: customRender,
         onSelect: function onSelect(suggest) {
           return _this4.handleSelectPrediction(suggest);
@@ -42375,6 +42416,7 @@ GooglePlacesSuggest.propTypes = {
   children: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.any.isRequired,
   googleMaps: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.object.isRequired,
   onSelectSuggest: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.func,
+  customContainerRender: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.func,
   customRender: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.func,
   autocompletionRequest: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.shape({
     input: __WEBPACK_IMPORTED_MODULE_0_prop_types___default.a.string.isRequired
