@@ -85,17 +85,7 @@ var GoogleSuggest = function (_React$Component) {
             {
               autocompletionRequest: { input: search },
               googleMaps: googleMaps,
-              onSelectSuggest: _this2.handleSelectSuggest.bind(_this2),
-              customContainerRender: function customContainerRender(items) {
-                return __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
-                  "div",
-                  null,
-                  "custom render label",
-                  items.map(function (item) {
-                    return item.description;
-                  })
-                );
-              }
+              onSelectSuggest: _this2.handleSelectSuggest.bind(_this2)
             },
             __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement("input", {
               type: "text",
@@ -41957,7 +41947,7 @@ module.exports = function(originalModule) {
 /***/ "./package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"name":"react-google-places-suggest","version":"3.3.1","author":{"name":"Cédric Delpoux","email":"xuopled@gmail.com"},"description":"React component to select geolocated suggestion from Google Maps Places API","files":["es","lib","umd"],"homepage":"https://github.com/xuopled/react-google-places-suggest#readme","repository":{"type":"git","url":"git+https://github.com/xuopled/react-google-places-suggest.git"},"bugs":{"url":"https://github.com/xuopled/react-google-places-suggest/issues"},"keywords":["react","google","maps","places","googlemaps","geosuggest"],"license":"MIT","main":"lib/index.js","module":"es/index.js","scripts":{"build":"nwb build-react-component","clean":"nwb clean-module && nwb clean-demo","deploy":"gh-pages -d demo/dist","lint":"eslint src demo/src","precommit":"lint-staged","prepublish":"yarn build","start":"nwb serve-react-demo --port 1190","test":"jest --config jest.config.json --colors --no-cache","test:watch":"yarn test -- --watch"},"dependencies":{"styled-components":"^3.1.6"},"devDependencies":{"babel-eslint":"^7.2.3","babel-jest":"^20.0.3","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","enzyme":"^2.9.1","eslint":"^4.5.0","eslint-config-prettier":"^2.3.0","eslint-loader":"^1.9.0","eslint-plugin-jest":"^20.0.3","eslint-plugin-prettier":"^2.1.2","eslint-plugin-react":"^7.3.0","gh-pages":"^1.0.0","html-loader":"^0.5.1","husky":"^0.14.3","jest":"^20.0.4","jest-css-modules":"^1.1.0","lint-staged":"^4.0.2","markdown-loader":"^2.0.1","nwb":"^0.18.0","prettier":"^1.5.3","prop-types":"^15.6.0","react":"^15.0.0","react-demo-page":"^0.3.2","react-dom":"^15.0.0","react-google-maps-loader":"^4.0.0","react-test-renderer":"^15.0.0"},"peerDependencies":{"react":"^15.0.0 || ^16.0.0","react-dom":"^15.0.0 || ^16.0.0"}}
+module.exports = {"name":"react-google-places-suggest","version":"3.4.0","author":{"name":"Cédric Delpoux","email":"xuopled@gmail.com"},"description":"React component to select geolocated suggestion from Google Maps Places API","files":["es","lib","umd"],"homepage":"https://github.com/xuopled/react-google-places-suggest#readme","repository":{"type":"git","url":"git+https://github.com/xuopled/react-google-places-suggest.git"},"bugs":{"url":"https://github.com/xuopled/react-google-places-suggest/issues"},"keywords":["react","google","maps","places","googlemaps","geosuggest"],"license":"MIT","main":"lib/index.js","module":"es/index.js","scripts":{"build":"nwb build-react-component","clean":"nwb clean-module && nwb clean-demo","deploy":"gh-pages -d demo/dist","lint":"eslint src demo/src","precommit":"lint-staged","prepublish":"yarn build","start":"nwb serve-react-demo --port 1190","test":"jest --config jest.config.json --colors --no-cache","test:watch":"yarn test -- --watch"},"dependencies":{"styled-components":"^3.1.6"},"devDependencies":{"babel-eslint":"^7.2.3","babel-jest":"^20.0.3","babel-plugin-transform-object-rest-spread":"^6.26.0","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","enzyme":"^2.9.1","eslint":"^4.5.0","eslint-config-prettier":"^2.3.0","eslint-loader":"^1.9.0","eslint-plugin-jest":"^20.0.3","eslint-plugin-prettier":"^2.1.2","eslint-plugin-react":"^7.3.0","gh-pages":"^1.0.0","html-loader":"^0.5.1","husky":"^0.14.3","jest":"^20.0.4","jest-css-modules":"^1.1.0","lint-staged":"^4.0.2","markdown-loader":"^2.0.1","nwb":"^0.18.0","prettier":"^1.5.3","prop-types":"^15.6.0","react":"^15.0.0","react-demo-page":"^0.3.2","react-dom":"^15.0.0","react-google-maps-loader":"^4.0.0","react-test-renderer":"^15.0.0"},"peerDependencies":{"react":"^15.0.0 || ^16.0.0","react-dom":"^15.0.0 || ^16.0.0"}}
 
 /***/ }),
 
