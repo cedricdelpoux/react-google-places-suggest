@@ -1,3 +1,4 @@
+/* global document */
 import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
@@ -20,10 +21,19 @@ class GooglePlacesSuggest extends React.Component {
     }
 
     this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.onFocusChange = this.onFocusChange.bind(this)
+    this.handleDOMClick = this.handleDOMClick.bind(this)
   }
+
+  hasFocus = false
 
   componentWillMount() {
     this.updatePredictions(this.props.autocompletionRequest)
+    document.addEventListener("click", this.handleDOMClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleDOMClick)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,6 +53,7 @@ class GooglePlacesSuggest extends React.Component {
         predictions: [],
       },
       () => {
+        this.hasFocus = false
         this.geocodePrediction(suggest.description, result => {
           onSelectSuggest(result, suggest)
         })
@@ -54,7 +65,13 @@ class GooglePlacesSuggest extends React.Component {
     const {googleMaps} = this.props
     const autocompleteService = new googleMaps.places.AutocompleteService()
     if (!autocompletionRequest || !autocompletionRequest.input) {
-      this.setState({open: false, predictions: []})
+      this.setState(
+        {
+          open: false,
+          predictions: [],
+        },
+        () => (this.hasFocus = false)
+      )
       return
     }
 
@@ -115,6 +132,16 @@ class GooglePlacesSuggest extends React.Component {
     this.setState({focusedPredictionIndex: index})
   }
 
+  onFocusChange(val) {
+    this.hasFocus = val
+  }
+
+  handleDOMClick() {
+    if (!this.hasFocus && this.state.open) {
+      this.setState({open: false})
+    }
+  }
+
   render() {
     const {focusedPredictionIndex, open, predictions} = this.state
     const {
@@ -134,6 +161,7 @@ class GooglePlacesSuggest extends React.Component {
             customRender={customRender}
             onSelect={suggest => this.handleSelectPrediction(suggest)}
             textNoResults={textNoResults}
+            onFocusChange={this.onFocusChange}
           />
         )}
       </Wrapper>
