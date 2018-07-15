@@ -11,5 +11,8 @@
     "plugin:jest/recommended",
     "plugin:react/recommended",
     "prettier"
-  ]
+  ],
+  "rules": {
+    "react/no-deprecated": "warn"
+  }
 }
