@@ -85,12 +85,10 @@ describe("Suggest", () => {
   it("prevents exception when mouse enters and onFocusChanged is null", () => {
     const list = shallow(ListFixture)
     list.simulate("mouseenter")
-    expect.not.toThrow()
   })
 
   it("prevents exception when mouse leaves and onFocusChanged is null", () => {
     const list = shallow(ListFixture)
     list.simulate("mouseleave")
-    expect.not.toThrow()
   })
 })
