@@ -33,12 +33,18 @@ const ListCustomItemFixture = (
   <List customRender={prediction => prediction && prediction.description} />
 )
 
+const onFocusChange = jest.fn()
+const ListMouseEventsFixture = (
+  <List items={[item]} onFocusChange={onFocusChange} />
+)
+
 describe("Suggest", () => {
   it("renders", () => {
     mount(ListFixture)
     mount(ListEmptyFixture)
     mount(ListCustomFixture)
     mount(ListCustomItemFixture)
+    mount(ListMouseEventsFixture)
   })
 
   it("has one child", () => {
@@ -58,5 +64,31 @@ describe("Suggest", () => {
       .first()
       .simulate("click")
     expect(onSelect).toHaveBeenCalled()
+  })
+
+  it("calls onFocusChanged(true) only once when mouse enters", () => {
+    onFocusChange.mockClear()
+    const list = shallow(ListMouseEventsFixture)
+    list.simulate("mouseenter")
+    expect(onFocusChange).toHaveBeenCalledTimes(1)
+    expect(onFocusChange).toHaveBeenCalledWith(true)
+  })
+
+  it("calls onFocusChanged(false) only once when mouse leaves", () => {
+    onFocusChange.mockClear()
+    const list = shallow(ListMouseEventsFixture)
+    list.simulate("mouseleave")
+    expect(onFocusChange).toHaveBeenCalledTimes(1)
+    expect(onFocusChange).toHaveBeenCalledWith(false)
+  })
+
+  it("prevents exception when mouse enters and onFocusChanged is null", () => {
+    const list = shallow(ListFixture)
+    list.simulate("mouseenter")
+  })
+
+  it("prevents exception when mouse leaves and onFocusChanged is null", () => {
+    const list = shallow(ListFixture)
+    list.simulate("mouseleave")
   })
 })

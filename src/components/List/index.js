@@ -18,6 +18,13 @@ const Wrapper = styled.div`
 `
 
 class List extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.handleMouseEnter = this.handleMouseEnter.bind(this)
+    this.handleMouseLeave = this.handleMouseLeave.bind(this)
+  }
+
   renderDefault() {
     const {
       customRender,
@@ -29,7 +36,10 @@ class List extends React.Component {
 
     if (items.length > 0) {
       return (
-        <Wrapper>
+        <Wrapper
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+        >
           {items.map((item, index) => (
             <ListItem
               key={index}
@@ -45,13 +55,30 @@ class List extends React.Component {
 
     if (textNoResults || customRender) {
       return (
-        <Wrapper>
+        <Wrapper
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+        >
           <ListItem customRender={customRender} textNoResults={textNoResults} />
         </Wrapper>
       )
     }
 
     return null
+  }
+
+  handleMouseEnter() {
+    const {onFocusChange} = this.props
+    if (onFocusChange) {
+      onFocusChange(true)
+    }
+  }
+
+  handleMouseLeave() {
+    const {onFocusChange} = this.props
+    if (onFocusChange) {
+      onFocusChange(false)
+    }
   }
 
   render() {
@@ -80,6 +107,7 @@ List.propTypes = {
     PropTypes.instanceOf(ListItem),
   ]),
   onSelect: PropTypes.func,
+  onFocusChange: PropTypes.func,
   customContainerRender: PropTypes.func,
   customRender: PropTypes.func,
   textNoResults: PropTypes.string,
