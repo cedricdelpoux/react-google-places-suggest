@@ -1,4 +1,4 @@
-# 3.5.0 - 2018-03-13
+# 3.5.0 - 2018-07-18
 
 -   Updated: Hide suggestions when clicking outside them by @jjavierdguezas
 
