@@ -7,11 +7,11 @@ const Match = styled.span`
 `
 
 const Prediction = ({item}) => {
-  const {description, matched_substrings} = item
+  const {description, structured_formatting} = item
   const firstMatchedString =
-    matched_substrings &&
-    matched_substrings.length > 0 &&
-    matched_substrings.shift()
+    structured_formatting &&
+    structured_formatting.main_text_matched_substrings.length > 0 &&
+    structured_formatting.main_text_matched_substrings[0]
   let labelParts = null
 
   if (firstMatchedString) {
@@ -45,12 +45,14 @@ const Prediction = ({item}) => {
 Prediction.propTypes = {
   item: PropTypes.shape({
     description: PropTypes.string,
-    matched_substrings: PropTypes.arrayOf(
-      PropTypes.shape({
-        length: PropTypes.number.isRequired,
-        offset: PropTypes.number.isRequired,
-      })
-    ),
+    structured_formatting: PropTypes.shape({
+      main_text_matched_substrings: PropTypes.arrayOf(
+        PropTypes.shape({
+          length: PropTypes.number.isRequired,
+          offset: PropTypes.number.isRequired,
+        })
+      ),
+    }),
   }).isRequired,
 }
 

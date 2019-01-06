@@ -6,7 +6,9 @@ const LabelFixture = (
   <Label
     item={{
       description: "Toulouse, France",
-      matched_substrings: [{length: 3, offset: 0}],
+      structured_formatting: {
+        main_text_matched_substrings: [{length: 3, offset: 0}],
+      },
     }}
   />
 )
@@ -15,7 +17,9 @@ const LabelMatchedFixture = (
   <Label
     item={{
       description: "Toulouse, France",
-      matched_substrings: [{length: 3, offset: 0}],
+      structured_formatting: {
+        main_text_matched_substrings: [{length: 3, offset: 0}],
+      },
     }}
   />
 )
