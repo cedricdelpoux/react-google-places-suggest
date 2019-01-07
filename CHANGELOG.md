@@ -1,3 +1,7 @@
+# 3.5.1 - 2019-01-07
+
+-   Fixed: font-weight highlighting when using arrow keys by @nmiddendorff
+
 # 3.5.0 - 2018-07-18
 
 -   Updated: Hide suggestions when clicking outside them by @jjavierdguezas
