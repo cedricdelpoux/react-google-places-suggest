@@ -1,3 +1,7 @@
+# 3.5.2 - 2019-02-19
+
+-   Fixed: Dropdown item in whitespace not clickable by @saikatharryc
+
 # 3.5.1 - 2019-01-07
 
 -   Fixed: font-weight highlighting when using arrow keys by @nmiddendorff
