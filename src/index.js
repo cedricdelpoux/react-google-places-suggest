@@ -187,6 +187,7 @@ GooglePlacesSuggest.propTypes = {
 }
 
 GooglePlacesSuggest.defaultProps = {
+  onNoResult: () => {},
   onSelectSuggest: () => {},
   textNoResults: "No results",
 }

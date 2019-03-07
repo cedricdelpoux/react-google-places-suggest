@@ -38,7 +38,6 @@ class GoogleSuggest extends React.Component {
                 autocompletionRequest={{input: search}}
                 googleMaps={googleMaps}
                 onSelectSuggest={this.handleSelectSuggest.bind(this)}
-                onNoResult={this.handleNoResult.bind(this)}
               >
                 <input
                   type="text"
