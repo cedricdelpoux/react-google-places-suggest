@@ -48,6 +48,10 @@ export default class GoogleSuggest extends React.Component {
         console.log(geocodedPrediction, originalPrediction) // eslint-disable-line
         this.setState({search: "", value: geocodedPrediction.formatted_address})
     }
+    
+    handleNoResult = () => {
+        console.log('No results for ', this.state.search)
+    }
 
     render() {
         const {search, value} = this.state
@@ -67,6 +71,7 @@ export default class GoogleSuggest extends React.Component {
                                 // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
                             }}
                             // Optional props
+                            onNoResult={this.handleNoResult}
                             onSelectSuggest={this.handleSelectSuggest}
                             textNoResults="My custom no results text" // null or "" if you want to disable the no results item
                             customRender={prediction => (
@@ -101,6 +106,7 @@ See [Demo page][github-page]
 | Name                  | PropType | Description                                                                                                                   | Example                                                                                             |
 | --------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | googleMaps            | object   | injected by `react-google-maps-loader`                                                                                        | -                                                                                                   |
+| onNoResult            | function | Handle no results when enter key is pressed                                                                                                     | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
 | onSelectSuggest       | function | Handle click on suggest                                                                                                       | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
 | customRender          | function | Customize list item                                                                                                           | `prediction => prediction ? prediction.description : "no results"`                                  |
 | customContainerRender | function | Customize list                                                                                                                | `items => <CustomWrapper>{items.map(item => <ItemWrapper>{item.description}</ItemWrapper>)}         |
