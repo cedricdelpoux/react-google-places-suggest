@@ -19,6 +19,10 @@ class GoogleSuggest extends React.Component {
     this.setState({search: "", value: suggest.formatted_address})
   }
 
+  handleNoResult() {
+    alert(this.state.search) // eslint-disable-line
+  }
+
   render() {
     const {search, value} = this.state
     return (
@@ -34,6 +38,7 @@ class GoogleSuggest extends React.Component {
                 autocompletionRequest={{input: search}}
                 googleMaps={googleMaps}
                 onSelectSuggest={this.handleSelectSuggest.bind(this)}
+                onNoResult={this.handleNoResult.bind(this)}
               >
                 <input
                   type="text"
