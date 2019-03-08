@@ -4,14 +4,10 @@ import styled from "styled-components"
 
 const Match = styled.span`
   font-weight: bold;
-  width: 100%;
-  display: block;
 `
 const UpperDiv = styled.div`
+  text-align: left;
   width: 100%;
-`
-const OuterSpan = styled.span`
-  display: inline;
 `
 
 const Prediction = ({item}) => {
@@ -38,11 +34,11 @@ const Prediction = ({item}) => {
   return (
     <UpperDiv>
       {labelParts ? (
-        <OuterSpan>
+        <span>
           {labelParts.before}
           <Match>{labelParts.match}</Match>
           {labelParts.after}
-        </OuterSpan>
+        </span>
       ) : (
         description
       )}
