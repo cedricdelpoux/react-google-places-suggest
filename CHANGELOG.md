@@ -1,3 +1,7 @@
+# 3.6.0 - 2019-03-08
+
+-   Added: onNoResult callback by @nmiddendorff
+
 # 3.5.2 - 2019-02-19
 
 -   Fixed: Dropdown item in whitespace not clickable by @saikatharryc
