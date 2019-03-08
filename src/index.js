@@ -125,6 +125,10 @@ class GooglePlacesSuggest extends React.Component {
           this.focusPrediction(focusedPredictionIndex + 1)
         }
       }
+    } else if (e.key === "Enter") {
+      const {onNoResult} = this.props
+
+      onNoResult()
     }
   }
 
@@ -172,6 +176,7 @@ class GooglePlacesSuggest extends React.Component {
 GooglePlacesSuggest.propTypes = {
   children: PropTypes.any.isRequired,
   googleMaps: PropTypes.object.isRequired,
+  onNoResult: PropTypes.func,
   onSelectSuggest: PropTypes.func,
   customContainerRender: PropTypes.func,
   customRender: PropTypes.func,
@@ -182,6 +187,7 @@ GooglePlacesSuggest.propTypes = {
 }
 
 GooglePlacesSuggest.defaultProps = {
+  onNoResult: () => {},
   onSelectSuggest: () => {},
   textNoResults: "No results",
 }
