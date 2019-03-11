@@ -1,3 +1,7 @@
+# 3.6.1 - 2019-03-11
+
+-   Fixed: Prediction text wrap by @nmiddendorff
+
 # 3.6.0 - 2019-03-08
 
 -   Added: onNoResult callback by @nmiddendorff
