@@ -15,6 +15,9 @@ class GooglePlacesSuggest extends React.Component {
     super()
 
     this.state = {
+      displayPoweredByGoogle:
+        props.displayPoweredByGoogle === undefined ||
+        props.displayPoweredByGoogle,
       focusedPredictionIndex: 0,
       predictions: [],
       open: !!props.autocompletionRequest && props.autocompletionRequest.input,
@@ -147,7 +150,12 @@ class GooglePlacesSuggest extends React.Component {
   }
 
   render() {
-    const {focusedPredictionIndex, open, predictions} = this.state
+    const {
+      focusedPredictionIndex,
+      open,
+      predictions,
+      displayPoweredByGoogle,
+    } = this.state
     const {
       children,
       customContainerRender,
