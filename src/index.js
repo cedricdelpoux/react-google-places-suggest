@@ -15,6 +15,9 @@ class GooglePlacesSuggest extends React.Component {
     super()
 
     this.state = {
+      displayPoweredByGoogle:
+        props.displayPoweredByGoogle === undefined ||
+        props.displayPoweredByGoogle,
       focusedPredictionIndex: 0,
       predictions: [],
       open: !!props.autocompletionRequest && props.autocompletionRequest.input,
@@ -147,7 +150,12 @@ class GooglePlacesSuggest extends React.Component {
   }
 
   render() {
-    const {focusedPredictionIndex, open, predictions} = this.state
+    const {
+      focusedPredictionIndex,
+      open,
+      predictions,
+      displayPoweredByGoogle,
+    } = this.state
     const {
       children,
       customContainerRender,
@@ -163,6 +171,7 @@ class GooglePlacesSuggest extends React.Component {
             activeItemIndex={focusedPredictionIndex}
             customContainerRender={customContainerRender}
             customRender={customRender}
+            displayPoweredByGoogle={displayPoweredByGoogle}
             onSelect={suggest => this.handleSelectPrediction(suggest)}
             textNoResults={textNoResults}
             onFocusChange={this.onFocusChange}
@@ -180,6 +189,7 @@ GooglePlacesSuggest.propTypes = {
   onSelectSuggest: PropTypes.func,
   customContainerRender: PropTypes.func,
   customRender: PropTypes.func,
+  displayPoweredByGoogle: PropTypes.bool,
   autocompletionRequest: PropTypes.shape({
     input: PropTypes.string.isRequired,
   }).isRequired,
