@@ -87,7 +87,6 @@ class List extends React.Component {
 
   render() {
     const {customContainerRender, items} = this.props
-
     return customContainerRender
       ? customContainerRender(items)
       : this.renderDefault(items)
