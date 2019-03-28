@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const GoogleWrapper = styled.div`
   text-align: end;
-  padding: 0.3125rem;
+  padding-right: 0.3125rem;
 `
 
 class PoweredByGoogleLogo extends React.Component {
