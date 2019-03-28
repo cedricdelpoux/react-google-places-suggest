@@ -6,15 +6,19 @@ const GoogleWrapper = styled.div`
   padding: 0.3125rem;
 `
 
-const PoweredByGoogleLogo = () => (
-  <GoogleWrapper>
-    <img
-      src={
-        "../../assets/images/powered_by_google/desktop/powered_by_google_on_white.png"
-      }
-      alt={"Powered by Google"}
-    />
-  </GoogleWrapper>
-)
+class PoweredByGoogleLogo extends React.Component {
+  render() {
+    return (
+      <GoogleWrapper>
+        <img
+          alt={"Powered By Google"}
+          src={
+            "../../assets/images/powered_by_google/desktop/powered_by_google_on_white.png"
+          }
+        />
+      </GoogleWrapper>
+    )
+  }
+}
 
 export default PoweredByGoogleLogo

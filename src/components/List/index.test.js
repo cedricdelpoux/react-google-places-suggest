@@ -1,45 +1,62 @@
 import {mount, shallow} from "enzyme"
 import React from "react"
+import Chance from "chance"
 import List from "./index"
 import ListItem from "../ListItem"
+import PoweredByGoogleLogo from "../PoweredByGoogleLogo"
 
-const onSelect = jest.fn()
-const item = {
-  description: "Toulouse, France",
-  matched_substrings: [{length: 3, offset: 0}],
-}
+describe("List", () => {
+  const chance = new Chance()
 
-const ListFixture = (
-  <List
-    renderSuggest={suggest => suggest && suggest.description}
-    items={[item]}
-    onSelect={onSelect}
-  />
-)
+  let onSelect,
+    item,
+    ListFixture,
+    ListEmptyFixture,
+    customLabel,
+    ListCustomFixture,
+    ListCustomItemFixture,
+    onFocusChange,
+    ListMouseEventsFixture
 
-const ListEmptyFixture = <List />
-const customLabel = "List"
-const ListCustomFixture = (
-  <List
-    customContainerRender={items => (
-      <div>
-        {customLabel}
-        {items.map(item => item.description)}
-      </div>
-    )}
-  />
-)
-const ListCustomItemFixture = (
-  <List customRender={prediction => prediction && prediction.description} />
-)
+  beforeEach(() => {
+    onSelect = jest.fn()
+    item = {
+      description: "Toulouse, France",
+      matched_substrings: [{length: 3, offset: 0}],
+    }
 
-const onFocusChange = jest.fn()
-const ListMouseEventsFixture = (
-  <List items={[item]} onFocusChange={onFocusChange} />
-)
+    ListFixture = (
+      <List
+        renderSuggest={suggest => suggest && suggest.description}
+        items={[item]}
+        onSelect={onSelect}
+      />
+    )
 
-describe("Suggest", () => {
-  it("renders", () => {
+    ListEmptyFixture = <List />
+    customLabel = "List"
+    ListCustomFixture = (
+      <List
+        customContainerRender={items => (
+          <div>
+            {customLabel}
+            {items.map(item => item.description)}
+          </div>
+        )}
+      />
+    )
+    ListCustomItemFixture = (
+      <List
+        customRender={prediction => prediction && prediction.description}
+        items={[item]}
+      />
+    )
+
+    onFocusChange = jest.fn()
+    ListMouseEventsFixture = (
+      <List items={[item]} onFocusChange={onFocusChange} />
+    )
+
     mount(ListFixture)
     mount(ListEmptyFixture)
     mount(ListCustomFixture)
@@ -50,6 +67,25 @@ describe("Suggest", () => {
   it("has one child", () => {
     const list = shallow(ListFixture)
     expect(list.find(ListItem)).toHaveLength(1)
+  })
+
+  it("should render Powered By Google logo id displayPoweredByGoogle is true", () => {
+    ListFixture = (
+      <List
+        displayPoweredByGoogle={true}
+        renderSuggest={suggest => suggest && suggest.description}
+        items={[item]}
+        onSelect={onSelect}
+      />
+    )
+    mount(ListFixture)
+    const list = shallow(ListFixture)
+    expect(list.find(PoweredByGoogleLogo)).toHaveLength(1)
+  })
+
+  it("should **not** render Powered By Google logo if displayPoweredByGoogle is falsy", () => {
+    const list = shallow(ListFixture)
+    expect(list.find(PoweredByGoogleLogo)).toHaveLength(0)
   })
 
   it("uses customContainerRender prop", () => {
@@ -64,6 +100,37 @@ describe("Suggest", () => {
       .first()
       .simulate("click")
     expect(onSelect).toHaveBeenCalled()
+  })
+
+  it("should render Powered By Google logo for custom items if displayPoweredByGoogle is true given there are no items and no text result", () => {
+    ListFixture = (
+      <List
+        displayPoweredByGoogle={true}
+        items={[]}
+        textNoResults={chance.string()}
+      />
+    )
+    mount(ListFixture)
+    const list = shallow(ListFixture)
+    expect(list.find(PoweredByGoogleLogo)).toHaveLength(1)
+  })
+
+  it("should render Powered By Google logo for custom items if displayPoweredByGoogle is true given there are no items and is custom render", () => {
+    ListCustomItemFixture = (
+      <List
+        displayPoweredByGoogle={true}
+        customRender={prediction => prediction && prediction.description}
+        items={[]}
+      />
+    )
+    mount(ListCustomItemFixture)
+    const list = shallow(ListCustomItemFixture)
+    expect(list.find(PoweredByGoogleLogo)).toHaveLength(1)
+  })
+
+  it("should **not** render Powered By Google logo for custom item list if displayPoweredByGoogle is falsy", () => {
+    const list = shallow(ListCustomItemFixture)
+    expect(list.find(PoweredByGoogleLogo)).toHaveLength(0)
   })
 
   it("calls onFocusChanged(true) only once when mouse enters", () => {
