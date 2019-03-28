@@ -15,9 +15,7 @@ class GooglePlacesSuggest extends React.Component {
     super()
 
     this.state = {
-      displayPoweredByGoogle:
-        props.displayPoweredByGoogle === undefined ||
-        props.displayPoweredByGoogle,
+      displayPoweredByGoogle: props.displayPoweredByGoogle,
       focusedPredictionIndex: 0,
       predictions: [],
       open: !!props.autocompletionRequest && props.autocompletionRequest.input,
