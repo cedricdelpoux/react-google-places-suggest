@@ -110,7 +110,7 @@ See [Demo page][github-page]
 | onSelectSuggest        | function | Handle click on suggest                                                                                                       | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
 | customRender           | function | Customize list item                                                                                                           | `prediction => prediction ? prediction.description : "no results"`                                  |
 | customContainerRender  | function | Customize list                                                                                                                | `items => <CustomWrapper>{items.map(item => <ItemWrapper>{item.description}</ItemWrapper>)}         |
-| displayPoweredByGoogle | boolean  | Display the "Powered By Google" logo as required by the [Google Maps autocomplete terms and conditions](https://developers.google.com/maps/documentation/javascript/places-autocomplete#fig1). (defaults to true)
+| displayPoweredByGoogle | boolean  | Display the "Powered By Google" logo as required by the [Google Maps autocomplete terms and conditions](https://developers.google.com/maps/documentation/javascript/places-autocomplete#fig1). (defaults to true. Not included when using customContainerRender prop)
 | textNoResults          | String   | No results text, null to disable                                                                                              | `No results`                                                                                        |
 
 ## Contributing
