@@ -62,12 +62,7 @@ class List extends React.Component {
           onMouseEnter={this.handleMouseEnter}
           onMouseLeave={this.handleMouseLeave}
         >
-          {
-            <ListItem
-              customRender={customRender}
-              textNoResults={textNoResults}
-            />
-          }
+          <ListItem customRender={customRender} textNoResults={textNoResults} />
           {displayPoweredByGoogle && <PoweredByGoogleLogo />}
         </Wrapper>
       )
