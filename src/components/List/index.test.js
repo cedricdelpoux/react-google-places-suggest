@@ -1,13 +1,10 @@
 import {mount, shallow} from "enzyme"
 import React from "react"
-import Chance from "chance"
 import List from "./index"
 import ListItem from "../ListItem"
 import PoweredByGoogleLogo from "../PoweredByGoogleLogo"
 
 describe("List", () => {
-  const chance = new Chance()
-
   let onSelect,
     item,
     ListFixture,
@@ -69,7 +66,7 @@ describe("List", () => {
     expect(list.find(ListItem)).toHaveLength(1)
   })
 
-  it("should render Powered By Google logo id displayPoweredByGoogle is true", () => {
+  it("should render Powered By Google logo if displayPoweredByGoogle is true", () => {
     ListFixture = (
       <List
         displayPoweredByGoogle={true}
@@ -107,7 +104,7 @@ describe("List", () => {
       <List
         displayPoweredByGoogle={true}
         items={[]}
-        textNoResults={chance.string()}
+        textNoResults={"No results found"}
       />
     )
     mount(ListFixture)
