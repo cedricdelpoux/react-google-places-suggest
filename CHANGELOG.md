@@ -1,3 +1,7 @@
+# 3.7.0 - 2019-03-11
+
+-   Added: Display powered by google logo by @BradyKDavis
+
 # 3.6.1 - 2019-03-11
 
 -   Fixed: Prediction text wrap by @nmiddendorff
