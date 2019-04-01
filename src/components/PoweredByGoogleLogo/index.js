@@ -13,7 +13,7 @@ class PoweredByGoogleLogo extends React.Component {
         <img
           alt={"Powered By Google"}
           src={
-            "../../assets/images/powered_by_google/desktop/powered_by_google_on_white.png"
+            "/assets/images/powered_by_google/desktop/powered_by_google_on_white.png"
           }
         />
       </GoogleWrapper>
