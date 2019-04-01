@@ -152,6 +152,7 @@ class GooglePlacesSuggest extends React.Component {
       children,
       customContainerRender,
       customRender,
+      displayPoweredByGoogle,
       textNoResults,
     } = this.props
     return (
@@ -163,6 +164,7 @@ class GooglePlacesSuggest extends React.Component {
             activeItemIndex={focusedPredictionIndex}
             customContainerRender={customContainerRender}
             customRender={customRender}
+            displayPoweredByGoogle={displayPoweredByGoogle}
             onSelect={suggest => this.handleSelectPrediction(suggest)}
             textNoResults={textNoResults}
             onFocusChange={this.onFocusChange}
@@ -180,6 +182,7 @@ GooglePlacesSuggest.propTypes = {
   onSelectSuggest: PropTypes.func,
   customContainerRender: PropTypes.func,
   customRender: PropTypes.func,
+  displayPoweredByGoogle: PropTypes.bool,
   autocompletionRequest: PropTypes.shape({
     input: PropTypes.string.isRequired,
   }).isRequired,
@@ -187,6 +190,7 @@ GooglePlacesSuggest.propTypes = {
 }
 
 GooglePlacesSuggest.defaultProps = {
+  displayPoweredByGoogle: true,
   onNoResult: () => {},
   onSelectSuggest: () => {},
   textNoResults: "No results",

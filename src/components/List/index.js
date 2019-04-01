@@ -3,6 +3,7 @@ import React from "react"
 import styled from "styled-components"
 
 import ListItem from "../ListItem"
+import PoweredByGoogleLogo from "../PoweredByGoogleLogo"
 
 const Wrapper = styled.div`
   position: absolute;
@@ -30,6 +31,7 @@ class List extends React.Component {
       customRender,
       items,
       activeItemIndex,
+      displayPoweredByGoogle,
       onSelect,
       textNoResults,
     } = this.props
@@ -49,6 +51,7 @@ class List extends React.Component {
               item={item}
             />
           ))}
+          {displayPoweredByGoogle && <PoweredByGoogleLogo />}
         </Wrapper>
       )
     }
@@ -60,6 +63,7 @@ class List extends React.Component {
           onMouseLeave={this.handleMouseLeave}
         >
           <ListItem customRender={customRender} textNoResults={textNoResults} />
+          {displayPoweredByGoogle && <PoweredByGoogleLogo />}
         </Wrapper>
       )
     }
@@ -83,6 +87,7 @@ class List extends React.Component {
 
   render() {
     const {customContainerRender, items} = this.props
+
     return customContainerRender
       ? customContainerRender(items)
       : this.renderDefault(items)
@@ -106,6 +111,7 @@ List.propTypes = {
     PropTypes.arrayOf(PropTypes.instanceOf(ListItem)),
     PropTypes.instanceOf(ListItem),
   ]),
+  displayPoweredByGoogle: PropTypes.bool,
   onSelect: PropTypes.func,
   onFocusChange: PropTypes.func,
   customContainerRender: PropTypes.func,
