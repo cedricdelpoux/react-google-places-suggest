@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import PoweredByGoogleImage from "../../images/powered_by_google/desktop/PoweredByGoogleImage"
 
 const GoogleWrapper = styled.div`
   text-align: end;
@@ -10,12 +11,7 @@ class PoweredByGoogleLogo extends React.Component {
   render() {
     return (
       <GoogleWrapper>
-        <img
-          alt={"Powered By Google"}
-          src={
-            "../../assets/images/powered_by_google/desktop/powered_by_google_on_white.png"
-          }
-        />
+        <img alt={"Powered By Google"} src={PoweredByGoogleImage} />
       </GoogleWrapper>
     )
   }
