@@ -1,6 +1,10 @@
-# 3.7.0 - 2019-03-11
+# 3.7.1 - 2019-04-04
 
--   Added: Display powered by google logo by @BradyKDavis
+-   Fixed: Fixing "powered by google logo" by @BradyKDavis
+
+# 3.7.0 - 2019-04-01
+
+-   Added: Display "powered by google logo" by @BradyKDavis
 
 # 3.6.1 - 2019-03-11
 
