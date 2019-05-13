@@ -23,6 +23,10 @@ class GoogleSuggest extends React.Component {
     alert(this.state.search) // eslint-disable-line
   }
 
+  handleStatusUpdate(status) {
+    console.log(status) // eslint-disable-line
+  }
+
   render() {
     const {search, value} = this.state
     return (
@@ -39,6 +43,7 @@ class GoogleSuggest extends React.Component {
                 googleMaps={googleMaps}
                 onSelectSuggest={this.handleSelectSuggest.bind(this)}
                 onNoResult={this.handleNoResult.bind(this)}
+                onStatusUpdate={this.handleStatusUpdate}
               >
                 <input
                   type="text"
