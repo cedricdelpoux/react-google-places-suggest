@@ -1,3 +1,7 @@
+# 3.8.0 - 2019-05-21
+
+-   Added: onStatusUpdate callback prop by @brpratt
+
 # 3.7.1 - 2019-04-04
 
 -   Fixed: Fixing "powered by google logo" by @BradyKDavis
