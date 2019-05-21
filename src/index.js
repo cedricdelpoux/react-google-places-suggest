@@ -77,7 +77,8 @@ class GooglePlacesSuggest extends React.Component {
 
     autocompleteService.getPlacePredictions(
       autocompletionRequest, // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
-      predictions => {
+      (predictions, status) => {
+        this.props.onStatusUpdate(status)
         if (!predictions) {
           this.setState({open: true, predictions: []})
           return
@@ -180,6 +181,7 @@ GooglePlacesSuggest.propTypes = {
   googleMaps: PropTypes.object.isRequired,
   onNoResult: PropTypes.func,
   onSelectSuggest: PropTypes.func,
+  onStatusUpdate: PropTypes.func,
   customContainerRender: PropTypes.func,
   customRender: PropTypes.func,
   displayPoweredByGoogle: PropTypes.bool,
@@ -193,6 +195,7 @@ GooglePlacesSuggest.defaultProps = {
   displayPoweredByGoogle: true,
   onNoResult: () => {},
   onSelectSuggest: () => {},
+  onStatusUpdate: () => {},
   textNoResults: "No results",
 }
 
