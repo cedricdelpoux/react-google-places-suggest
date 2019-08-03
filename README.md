@@ -29,8 +29,8 @@ https://unpkg.com/react-google-places-suggest/umd/react-google-places-suggest.js
 
 ```js
 import React, {Component} from "react"
-import GoogleMapLoader from "react-google-maps-loader"
-import GooglePlacesSuggest from "react-google-places-suggest"
+import ReactGoogleMapLoader from "react-google-maps-loader"
+import ReactGooglePlacesSuggest from "react-google-places-suggest"
 
 const MY_API_KEY = "AIzaSyDwsdjfskhdbfjsdjbfksiTgnoriOAoUOgsUqOs10J0" // fake
 
