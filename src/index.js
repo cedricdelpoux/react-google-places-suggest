@@ -113,6 +113,7 @@ class GooglePlacesSuggest extends React.Component {
 
     if (predictions.length > 0) {
       if (e.key === "Enter") {
+        e.preventDefault()
         this.handleSelectPrediction(predictions[focusedPredictionIndex])
       } else if (e.key === "ArrowUp") {
         if (predictions.length > 0 && focusedPredictionIndex > 0) {
@@ -127,6 +128,7 @@ class GooglePlacesSuggest extends React.Component {
         }
       }
     } else if (e.key === "Enter") {
+      e.preventDefault()
       const {onNoResult} = this.props
 
       onNoResult()
