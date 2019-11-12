@@ -1,3 +1,7 @@
+# 3.9.0 - 2019-11-12
+
+-   Added: e.preventDefault to Enter-key events by Torben Wark
+
 # 3.8.0 - 2019-05-21
 
 -   Added: onStatusUpdate callback prop by @brpratt
