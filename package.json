@@ -1,6 +1,6 @@
 {
   "name": "react-google-places-suggest",
-  "version": "3.9.0",
+  "version": "3.9.1",
   "author": {
     "name": "Cédric Delpoux",
     "email": "xuopled@gmail.com"
@@ -42,7 +42,7 @@
     "test:watch": "yarn test -- --watch"
   },
   "dependencies": {
-    "styled-components": "^3.1.6"
+    "styled-components": "^2.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -64,14 +64,14 @@
     "jest-css-modules": "^1.1.0",
     "lint-staged": "^4.0.2",
     "markdown-loader": "^2.0.1",
-    "nwb": "^0.18.0",
+    "nwb": "^0.23.0",
     "prettier": "^1.5.3",
+    "react": "^15.6.0",
     "prop-types": "^15.6.0",
-    "react": "^15.0.0",
-    "react-demo-page": "^0.3.2",
-    "react-dom": "^15.0.0",
+    "react-demo-page": "^0.3.5",
+    "react-dom": "^15.6.0",
     "react-google-maps-loader": "^4.0.0",
-    "react-test-renderer": "^15.0.0"
+    "react-test-renderer": "^15.6.1"
   },
   "peerDependencies": {
     "react": "^15.0.0 || ^16.0.0",

@@ -1,7 +1,7 @@
 import {mount, shallow} from "enzyme"
 import React from "react"
-import PoweredByGoogleLogo from "./index"
 import PoweredByGoogleImage from "../../images/powered_by_google/desktop/PoweredByGoogleImage"
+import PoweredByGoogleLogo from "./index"
 
 describe("PoweredByGoogleLogo", () => {
   let logoFixture, renderedDiv, renderedImg

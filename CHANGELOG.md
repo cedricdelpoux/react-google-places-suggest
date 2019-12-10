@@ -1,3 +1,9 @@
+# 3.9.1 - 2019-12-10
+
+-   Fixed: demo
+-   Fixed: componentWillMount warning
+-   Fixed: componentWillReceiveProps warning
+
 # 3.9.0 - 2019-11-12
 
 -   Added: e.preventDefault to Enter-key events by Torben Wark

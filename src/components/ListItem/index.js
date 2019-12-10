@@ -1,14 +1,13 @@
 import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
-
 import Prediction from "../Prediction"
 
 const Wrapper = styled.div`
   ${props =>
     props.clickable &&
     "&:hover {background: #f5f5f5;cursor: pointer;} "} ${props =>
-      props.active && "background: #f5f5f5;"};
+    props.active && "background: #f5f5f5;"};
 `
 
 const Item = styled.div`

@@ -46,14 +46,17 @@ export default class GoogleSuggest extends React.Component {
 
     handleSelectSuggest = (geocodedPrediction, originalPrediction) => {
         console.log(geocodedPrediction, originalPrediction) // eslint-disable-line
-        this.setState({search: "", value: geocodedPrediction.formatted_address})
-    }
-    
-    handleNoResult = () => {
-        console.log('No results for ', this.state.search)
+        this.setState({
+            search: "",
+            value: geocodedPrediction.formatted_address,
+        })
     }
 
-    handleStatusUpdate = (status) => {
+    handleNoResult = () => {
+        console.log("No results for ", this.state.search)
+    }
+
+    handleStatusUpdate = status => {
         console.log(status)
     }
 
@@ -108,22 +111,22 @@ See [Demo page][github-page]
 
 ## Props
 
-| Name                   | PropType | Description                                                                                                                   | Example                                                                                             |
-| ---------------------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| googleMaps             | object   | injected by `react-google-maps-loader`                                                                                        | -                                                                                                   |
-| onNoResult             | function | Handle no results when enter key is pressed                                                                                   | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
-| onSelectSuggest        | function | Handle click on suggest                                                                                                       | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
-| onStatusUpdate         | function | Handle places service status update                                                                                           | `status => {console.log(status)}`                                                                   |
-| customRender           | function | Customize list item                                                                                                           | `prediction => prediction ? prediction.description : "no results"`                                  |
-| customContainerRender  | function | Customize list                                                                                                                | `items => <CustomWrapper>{items.map(item => <ItemWrapper>{item.description}</ItemWrapper>)}`        |
-| displayPoweredByGoogle | boolean  | Display the "Powered By Google" logo as required by the [Google Maps autocomplete terms and conditions](https://developers.google.com/maps/documentation/javascript/places-autocomplete#fig1). (defaults to true. Not included when using customContainerRender prop)
-| textNoResults          | String   | No results text, null to disable                                                                                              | `No results`                                                                                        |
+| Name                   | PropType | Description                                                                                                                                                                                                                                                           | Example                                                                                             |
+| ---------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| googleMaps             | object   | injected by `react-google-maps-loader`                                                                                                                                                                                                                                | -                                                                                                   |
+| onNoResult             | function | Handle no results when enter key is pressed                                                                                                                                                                                                                           | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
+| onSelectSuggest        | function | Handle click on suggest                                                                                                                                                                                                                                               | `(geocodedPrediction, originalPrediction) => {console.log(geocodedPrediction, originalPrediction)}` |
+| onStatusUpdate         | function | Handle places service status update                                                                                                                                                                                                                                   | `status => {console.log(status)}`                                                                   |
+| customRender           | function | Customize list item                                                                                                                                                                                                                                                   | `prediction => prediction ? prediction.description : "no results"`                                  |
+| customContainerRender  | function | Customize list                                                                                                                                                                                                                                                        | `items => <CustomWrapper>{items.map(item => <ItemWrapper>{item.description}</ItemWrapper>)}`        |
+| displayPoweredByGoogle | boolean  | Display the "Powered By Google" logo as required by the [Google Maps autocomplete terms and conditions](https://developers.google.com/maps/documentation/javascript/places-autocomplete#fig1). (defaults to true. Not included when using customContainerRender prop) |
+| textNoResults          | String   | No results text, null to disable                                                                                                                                                                                                                                      | `No results`                                                                                        |
 
 ## Contributing
 
-* ⇄ Pull/Merge requests and ★ Stars are always welcome.
-* For bugs and feature requests, please [create an issue][github-issue].
-* Pull requests must be accompanied by passing automated tests (`npm test`).
+-   ⇄ Pull/Merge requests and ★ Stars are always welcome.
+-   For bugs and feature requests, please [create an issue][github-issue].
+-   Pull requests must be accompanied by passing automated tests (`npm test`).
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) guidelines
 
@@ -138,10 +141,10 @@ This project is licensed under the MIT License - see the
 
 [npm-badge]: https://img.shields.io/npm/v/react-google-places-suggest.svg?style=flat-square
 [npm]: https://www.npmjs.org/package/react-google-places-suggest
-[build-badge]: https://img.shields.io/travis/xuopled/react-google-places-suggest/master.svg?style=flat-square
-[build]: https://travis-ci.org/xuopled/react-google-places-suggest
-[codecov-badge]: https://img.shields.io/codecov/c/github/xuopled/react-google-places-suggest.svg?style=flat-square
-[codecov]: https://codecov.io/gh/xuopled/react-google-places-suggest
+[build-badge]: https://img.shields.io/travis/cedricdelpoux/react-google-places-suggest/master.svg?style=flat-square
+[build]: https://travis-ci.org/cedricdelpoux/react-google-places-suggest
+[codecov-badge]: https://img.shields.io/codecov/c/github/cedricdelpoux/react-google-places-suggest.svg?style=flat-square
+[codecov]: https://codecov.io/gh/cedricdelpoux/react-google-places-suggest
 [module-formats]: https://img.shields.io/badge/module%20formats-umd%2C%20cjs%2C%20esm-green.svg?style=flat-square
-[github-page]: https://xuopled.github.io/react-google-places-suggest
-[github-issue]: https://github.com/xuopled/react-google-places-suggest/issues/new
+[github-page]: https://cedricdelpoux.github.io/react-google-places-suggest
+[github-issue]: https://github.com/cedricdelpoux/react-google-places-suggest/issues/new

@@ -2,7 +2,6 @@
 import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
-
 import List from "./components/List"
 
 const Wrapper = styled.div`
@@ -27,7 +26,7 @@ class GooglePlacesSuggest extends React.Component {
 
   hasFocus = false
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.updatePredictions(this.props.autocompletionRequest)
     document.addEventListener("click", this.handleDOMClick)
   }
@@ -36,7 +35,7 @@ class GooglePlacesSuggest extends React.Component {
     document.removeEventListener("click", this.handleDOMClick)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (
       this.props.autocompletionRequest !== nextProps.autocompletionRequest &&
       nextProps.autocompletionRequest
