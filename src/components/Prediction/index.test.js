@@ -1,6 +1,9 @@
-import {mount} from "enzyme"
+import {configure, mount} from "enzyme"
 import React from "react"
 import Label from "./index"
+var Adapter = require("enzyme-adapter-react-16")
+
+configure({adapter: new Adapter()})
 
 const LabelFixture = (
   <Label

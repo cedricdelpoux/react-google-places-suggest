@@ -1,8 +1,11 @@
-import {mount, shallow} from "enzyme"
+import {configure, mount, shallow} from "enzyme"
 import React from "react"
-import List from "./index"
 import ListItem from "../ListItem"
 import PoweredByGoogleLogo from "../PoweredByGoogleLogo"
+import List from "./index"
+var Adapter = require("enzyme-adapter-react-16")
+
+configure({adapter: new Adapter()})
 
 describe("List", () => {
   let onSelect,

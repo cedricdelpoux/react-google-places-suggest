@@ -2,7 +2,7 @@ import React from "react"
 import ReactGoogleMapLoader from "react-google-maps-loader"
 import ReactGooglePlacesSuggest from "../../../src"
 
-const API_KEY = "AIzaSyCLTirc_kwH5fV0RkzOIH_cP5J9SJHW2QA"
+const API_KEY = "AIzaSyBl-LW1ZgRQfQEicCI9Z_Di9755P4gc6ho"
 class GoogleSuggest extends React.Component {
   state = {
     search: "",

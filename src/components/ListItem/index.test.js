@@ -1,6 +1,9 @@
-import {mount, shallow} from "enzyme"
+import {configure, mount, shallow} from "enzyme"
 import React from "react"
 import ListItem from "./index"
+var Adapter = require("enzyme-adapter-react-16")
+
+configure({adapter: new Adapter()})
 
 const onClick = jest.fn()
 const item = {
