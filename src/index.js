@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
 import List from "./components/List"
+import {deepEqual} from "./utils"
 
 const Wrapper = styled.div`
   width: 100%;
@@ -37,7 +38,10 @@ class GooglePlacesSuggest extends React.Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (
-      this.props.autocompletionRequest !== nextProps.autocompletionRequest &&
+      !deepEqual(
+        this.props.autocompletionRequest,
+        nextProps.autocompletionRequest
+      ) &&
       nextProps.autocompletionRequest
     ) {
       this.updatePredictions(nextProps.autocompletionRequest)
