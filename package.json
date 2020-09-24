@@ -42,7 +42,7 @@
     "test:watch": "yarn test -- --watch"
   },
   "dependencies": {
-    "styled-components": "^2.4.0"
+    "styled-components": "^4.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
