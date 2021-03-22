@@ -89,9 +89,9 @@ class GooglePlacesSuggest extends React.Component {
 
     autocompleteService.getPlacePredictions(
       {
-        ...autocompletionRequest,
+        ...autocompletionRequest, // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
         sessionToken: this.state.sessionToken,
-      }, // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
+      },
       (predictions, status) => {
         this.props.onStatusUpdate(status)
         if (!predictions) {
