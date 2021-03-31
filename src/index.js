@@ -16,6 +16,7 @@ class GooglePlacesSuggest extends React.Component {
 
     this.state = {
       focusedPredictionIndex: 0,
+      sessionToken: "",
       predictions: [],
       open: !!props.autocompletionRequest && props.autocompletionRequest.input,
     }
@@ -57,8 +58,11 @@ class GooglePlacesSuggest extends React.Component {
       },
       () => {
         this.hasFocus = false
-        this.geocodePrediction(suggest.description, result => {
+        this.placesDetails(suggest.place_id, result => {
           onSelectSuggest(result, suggest)
+        })
+        this.setState({
+          sessionToken: "",
         })
       }
     )
@@ -67,6 +71,11 @@ class GooglePlacesSuggest extends React.Component {
   updatePredictions(autocompletionRequest) {
     const {googleMaps} = this.props
     const autocompleteService = new googleMaps.places.AutocompleteService()
+    if (!this.state.sessionToken) {
+      this.setState({
+        sessionToken: new googleMaps.places.AutocompleteSessionToken(),
+      })
+    }
     if (!autocompletionRequest || !autocompletionRequest.input) {
       this.setState(
         {
@@ -79,7 +88,10 @@ class GooglePlacesSuggest extends React.Component {
     }
 
     autocompleteService.getPlacePredictions(
-      autocompletionRequest, // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
+      {
+        ...autocompletionRequest, // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
+        sessionToken: this.state.sessionToken,
+      },
       (predictions, status) => {
         this.props.onStatusUpdate(status)
         if (!predictions) {
@@ -95,20 +107,27 @@ class GooglePlacesSuggest extends React.Component {
     )
   }
 
-  geocodePrediction(address, callback) {
+  placesDetails(placeId, callback) {
     const {googleMaps} = this.props
-    const geocoder = new googleMaps.Geocoder()
+    const map = new googleMaps.Map(document.createElement("map"))
 
-    geocoder.geocode({address}, (results, status) => {
-      if (status === googleMaps.GeocoderStatus.OK) {
-        if (results.length > 0) {
-          callback(results[0])
+    const placesService = new googleMaps.places.PlacesService(map)
+
+    placesService.getDetails(
+      {
+        placeId,
+        fields: ["geometry", "address_components", "types"],
+        sessionToken: this.state.sessionToken,
+      },
+      (result, status) => {
+        if (status === googleMaps.places.PlacesServiceStatus.OK) {
+          callback(result)
+        } else {
+          // eslint-disable-next-line
+          console.error("Places service error: " + status)
         }
-      } else {
-        // eslint-disable-next-line
-        console.error("Geocode error: " + status)
       }
-    })
+    )
   }
 
   handleKeyDown(e) {
