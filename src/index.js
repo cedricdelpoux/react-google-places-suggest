@@ -116,7 +116,12 @@ class GooglePlacesSuggest extends React.Component {
     placesService.getDetails(
       {
         placeId,
-        fields: ["geometry", "address_components", "types"],
+        fields: [
+          "geometry",
+          "address_components",
+          "types",
+          "formatted_address",
+        ],
         sessionToken: this.state.sessionToken,
       },
       (result, status) => {
