@@ -36,7 +36,7 @@
     "deploy": "gh-pages -d demo/dist",
     "lint": "eslint src demo/src",
     "precommit": "lint-staged",
-    "prepublish": "yarn build",
+    "prepublishOnly": "yarn build",
     "start": "nwb serve-react-demo --port 1190",
     "test": "jest --config jest.config.json --colors --no-cache",
     "test:watch": "yarn test -- --watch"
