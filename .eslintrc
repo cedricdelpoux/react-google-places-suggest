@@ -14,5 +14,10 @@
   ],
   "rules": {
     "react/no-deprecated": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
