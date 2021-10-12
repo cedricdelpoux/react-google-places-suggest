@@ -14,6 +14,7 @@ const Prediction = ({item}) => {
   const {description, structured_formatting} = item
   const firstMatchedString =
     structured_formatting &&
+    structured_formatting.main_text_matched_substrings &&
     structured_formatting.main_text_matched_substrings.length > 0 &&
     structured_formatting.main_text_matched_substrings[0]
   let labelParts = null
