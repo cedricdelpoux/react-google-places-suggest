@@ -71,9 +71,11 @@ class GooglePlacesSuggest extends React.Component {
   updatePredictions(autocompletionRequest) {
     const {googleMaps} = this.props
     const autocompleteService = new googleMaps.places.AutocompleteService()
-    if (!this.state.sessionToken) {
+    let sessionToken = this.state.sessionToken
+    if (!sessionToken) {
+      sessionToken = new googleMaps.places.AutocompleteSessionToken()
       this.setState({
-        sessionToken: new googleMaps.places.AutocompleteSessionToken(),
+        sessionToken,
       })
     }
     if (!autocompletionRequest || !autocompletionRequest.input) {
@@ -90,7 +92,7 @@ class GooglePlacesSuggest extends React.Component {
     autocompleteService.getPlacePredictions(
       {
         ...autocompletionRequest, // https://developers.google.com/maps/documentation/javascript/reference?hl=fr#AutocompletionRequest
-        sessionToken: this.state.sessionToken,
+        sessionToken,
       },
       (predictions, status) => {
         this.props.onStatusUpdate(status)
